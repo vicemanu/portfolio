@@ -1,0 +1,158 @@
+
+
+.cx_habilidades {
+    grid-area: box-2;
+    width: 96.6%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.cx_conteudoHab {
+    width: 1000px;
+    height: 550px;
+    background-color: #1b1818;
+    border: 2px solid #111111;
+    box-shadow: 9px 5px 20px 7px #000000b7;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+.cx_conteudoHab h1 {
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    margin: 0px 0px -20px 0px;
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 2.2em;
+}
+
+
+.cx_btn_habilidades {
+    width: 530px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;    
+}
+
+.btn_habilidades {
+    background-color: transparent;
+    width: 80px;
+    margin: 10px 10px;
+    height: 80px;
+    border: 2px solid #111111;
+    animation: colorido 10s alternate infinite;
+    box-shadow: 2px 5px 11px 1px #000000b7;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.8s;
+    /*  */
+}
+
+
+.btn_habilidades:hover {
+    transform: scale(1.1);
+}
+
+
+.btn_habilidades img{
+width: 70%;
+}
+
+
+.boxinha {
+    width: 380px;
+    margin: 0px 40px 0px 0px;
+    height: 450px;
+    border: 2px solid #111111;
+    box-shadow: 1px 4px 20px 0px #000000b7;
+    border-radius: 20px;
+}
+
+
+.boxinha h1 {
+    font-family: 'Shadows Into Light', cursive;
+    text-align: left !important;
+    margin: 15px 0px 3px 15px;
+    color: #fff;
+}
+
+.barra {
+    width: 350px;
+    margin: 0px 15px;
+    height: 4px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.459);
+    box-shadow: -1px 2px 8px -1px rgba(0, 0, 0, 0.719);
+    
+    
+}
+
+.barra .iniciante {
+    width: 30%;
+    height: 4px;
+    background-color: #0de6a4;
+    border-radius: 5px;
+    
+    
+    
+    
+}
+
+.barra .intermediario {
+    width: 60%;
+    height: 4px;
+    background-color: #0de6a4;
+    border-radius: 5px;
+    
+    
+    
+}
+
+.barra .avançado {
+    width: 75%;
+    height: 4px;
+    background-color: #0de6a4;
+    border-radius: 5px;
+    
+    
+    
+}
+
+.boxinha p {
+    max-width: 350px;
+    height: 80px;
+    font-family: 'Roboto', sans-serif; 
+    margin: 15px 0px 3px 15px;
+    color: #fff;
+    text-align: justify;
+    text-indent: 20px;
+}
+
+.boxinha img {
+    display: block;
+    margin: 30px auto 0px;
+    width: 180px;
+}
+
+
+@keyframes colorido
+{
+    0%{border: 1.8px solid #0de6a5b7;}
+    20%{border: 1.8px solid #00E617b7;}
+    40%{border: 1.8px solid #E68222b7;}
+    60%{border: 1.8px solid #17B9E6b7;}
+    80%{border: 1.8px solid #E62261b7;}
+    100%{border: 1.8px solid #0de6a4b7;}
+}
+

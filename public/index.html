@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
@@ -10,34 +10,98 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+  <style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,300&display=swap');
+
+      body {
+        background: #1D1D1D;
+      }
+
+      .container_noscript {
+        width: 1000px;
+        height: 600px;
+        margin: 10px auto;
+        border: 2px solid #111111;
+        box-shadow: 9px 5px 20px 7px #000000b7;
+        border-radius: 20px;
+        display: flex;
+      }
+
+      .container_noscript img {
+        border-radius: 20px;
+      }
+
+      .caxinha_noscript {
+        width: 800px;
+        height: 500px;
+        padding: 30px;
+        color: #fff;
+      }
+
+      .caxinha_noscript h1 {
+        font-size: 2em;
+        font-family: 'Roboto Mono', monospace;
+
+      }
+
+      .caxinha_noscript p {
+        font-size: 1.6em;
+        text-align: justify;
+        font-family: 'Raleway', sans-serif;
+      }
+
+      .redes_sociais {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+      .redes_sociais a {
+          margin: 15px;
+          padding: 6px 20px;
+          text-decoration: none;
+          border: 2px solid #0de6a4;
+          border-radius: 15px;
+          color:#fff;
+      }
+
+      .redes_sociais i {
+          font-size: 1.2em;
+          margin-right: 5px;
+          color:#fff;
+      }
+
+      .redes_sociais a:hover i,.redes_sociais a:hover {
+          color: #0de6a4;
+      }
+
+
+  </style>
+
+
+    <title>Victor Mielke</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <noscript>
+      <div class="container_noscript">
+        <img src="img/eu.jpg">
+        <div class="caxinha_noscript">
+          <h1>Olá eu sou o Victor Emanuel M. de S. Pereira</h1>
+          <p> Por algum motivo sua página não está usando Javascript, por isso não consegue acessar o conteúdo inteiro, mas vou deixar minhas redes sociais e meu currículo para você dá uma olhada.</p>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+          <div class="redes_sociais">
+            <a href="https://www.linkedin.com/in/victor-mielke/" target="_blank">Linkedin</a>
+            <a href="https://github.com/vicemanu" target="_blank">Github</a>
+            <a href="https://drive.google.com/file/d/16oiK3jgvlMXjhKHOOyRtujytIsVAXIz2/view" target="_blank">Currículo</a>
+            
+        </div>
+        </div>
+      </div>
+    </noscript>
   </body>
 </html>

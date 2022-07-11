@@ -1,0 +1,176 @@
+.home_tela {
+    width: 100%;
+    height: 100vh;
+}
+
+.home_principal {
+    max-width: 1000px;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid #111111;
+    box-shadow: 9px 5px 20px 7px #000000b7;
+    border-radius: 20px;
+}   
+
+
+/* Parte do inicio da pagina*/
+.cx_inicio_home {
+    width: 900px;
+    margin: 60px auto;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 100px;
+    position: relative;
+    
+}
+
+
+.cx_inicio_home img {
+    display: block;
+    width: 380px;
+    height: 500px;
+    background-color: blue;
+    border-radius: 20px;
+}
+
+.txt_cx_inicio {
+    margin-top: 60px;
+    color: #fff;
+    width: 465px;
+    
+}
+
+.txt_cx_inicio h1 {
+    font-size: 2em;
+    text-align: left !important;
+    font-family: 'Roboto Mono', monospace;
+
+}
+
+.txt_cx_inicio h2 {
+    font-size: 2em;
+    color: #0de6a4;
+    border-right: 2px solid #fff;
+    margin: -15px 0px;
+    animation: barra 500ms steps(40) infinite normal, escrevendo 4s steps(40) normal;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: 'Raleway', sans-serif;
+
+}
+
+.txt_cx_inicio h3 {
+    margin-bottom: 60px;
+    font-size: 1.2em;
+    font-family: 'Roboto Mono', monospace;
+
+}
+
+
+.txt_cx_inicio button {
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    font-size: 3em;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    bottom: -100px;
+}
+
+/* --------------------------------------------------- */
+/* Caixa de texto falando sobre meus objetivos */
+.cx_parte2 {
+    margin: auto;
+    width: 950px;
+    min-height: 500px;
+    border: 2px solid #111111;
+    box-shadow: 9px 5px 20px 7px #000000b7;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.cx_parte2 h2 {
+    text-align: center;
+    font-size: 2em;
+    font-family: 'Shadows Into Light', cursive;
+
+}
+
+.cx_parte2 p {
+    
+    padding: 30px 30px;
+    text-align: justify;
+    font-size: 1.4em;
+    text-indent: 15px;
+    font-family: 'Roboto', sans-serif; 
+}
+
+.home_habi {
+    margin-left: 40px;
+    margin-top: 80px;
+    min-height: 500px;
+}
+.home_projetos {
+    width: 95%;
+    max-height: 3000px;
+    margin: 10px auto 100px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    transform: scale(0.95);
+    
+}
+
+.h1 h1 {
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-family: 'Shadows Into Light', cursive;
+    margin: 50px 0px 0px 0px !important;
+}
+
+.home_projetos .box_projeto:nth-child(n+1) {
+    margin: 35px;
+    justify-content: flex-start;
+}
+
+
+footer {
+    width: 96.1%;
+    background-color: #000;
+    color: white;
+    text-align: center;
+    margin: 0px 0px -2px 20px ;
+    border-radius: 0px 0px 20px 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+footer p {
+    margin: 0px;
+    padding: 6px 0px 10px 0px;
+    font-family: 'Roboto Mono', monospace;
+}
+
+@keyframes escrevendo {
+    from {
+        width: 0;
+    }
+    to {
+        width: 15em;
+    }
+}
+
+@keyframes barra {
+    0% {
+        border-right-color: #fff;
+    }
+
+    100% {
+        border-right-color: transparent
+    }
+}

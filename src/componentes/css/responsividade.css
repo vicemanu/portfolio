@@ -1,0 +1,264 @@
+
+
+/* and (min-width: 1100px) */
+
+@media screen and (max-width:1200px) {
+    .header, .box_vazio {
+        display: none;
+    }
+
+    .home_principal {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%,0);
+    }
+}
+
+
+
+@media screen and (max-width:1050px) {
+
+    
+
+
+    .home_principal {
+        width: 800px;
+
+    }
+
+
+    /* primeira parte*/
+    .cx_inicio_home {
+        justify-content: flex-start;
+        width: 800px;
+    }
+
+
+    .cx_inicio_home img {
+        display: none;
+    }
+
+    .txt_cx_inicio {
+        margin: 0px;
+        margin-left: 80px;
+        padding: 0px;
+        
+    }
+
+    /* texto*/
+
+    .cx_parte2 {
+        width: 800px;
+    }
+
+    .home_habi .cx_conteudoHab {
+        width: 800px;
+        height: 700px;
+        margin: 0px;
+        flex-direction: column;
+        margin-top: 200px;
+    }
+
+
+    .home_habi .cx_conteudoHab h1 {
+        margin-top: 20px;
+    }
+
+    .home_habi .cx_conteudoHab .cx_btn_habilidades {
+        width: 100%;
+    }
+
+
+    .home_habi .cx_conteudoHab .boxinha {
+        margin-bottom: 30px;
+    }
+
+    .h1 {
+        margin-top: 200px;
+    }
+
+    .home_projetos {
+        margin: 0px auto;
+        padding-left: 100px;
+        width: 750px;
+    }
+
+    footer {
+        width: 94.4%;
+        margin: 0px 0px -2px 25px ;
+    }
+    
+}
+
+
+
+
+
+@media screen and (max-width:849px) {
+
+    .home_principal {
+        width: 600px;
+    }
+
+
+    /* primeira parte*/
+    .cx_inicio_home {
+        width: 600px;
+    }
+    
+
+    /* texto*/
+
+    .cx_parte2 {
+        width: 600px;
+    }
+
+    .home_habi .cx_conteudoHab {
+        width: 590px;
+        height: 550px;
+        margin-left: -15px;
+        margin-top: 50px;
+    }
+
+    .home_habi .cx_conteudoHab .cx_btn_habilidades {
+        width: 90%;
+        
+    }
+
+
+    .home_habi .cx_conteudoHab .boxinha {
+        margin-bottom: 30px;
+        height: 200px;
+        
+    }
+
+    .home_habi .cx_conteudoHab .boxinha  img {
+        display: none;
+    }
+
+    .h1 {
+        margin-top: 100px;
+    }
+
+
+    .home_projetos {
+        width: 400px;
+    }
+
+    footer {
+        width: 97.2%;
+        margin: 0px 0px -2px 10px ;
+    }
+    
+}
+
+
+@media screen and (max-width:629px) {
+
+    .home_principal {
+        width: 300px;
+        
+    }
+
+
+    /* primeira parte*/
+    .cx_inicio_home {
+        width: 290px;
+        
+    }
+
+    .txt_cx_inicio {
+        width: 280px;
+        
+        margin-left: 10px;
+    }
+
+
+    .txt_cx_inicio h1,.txt_cx_inicio h2, .cx_parte2 h2 {
+        font-size: 1.2em;
+
+    }
+    
+    .txt_cx_inicio h3 {
+        font-size: 0.8em;
+    }
+
+    .txt_cx_inicio a {
+        font-size: 0.5em;
+        padding: 5px 8px;
+        border-radius: 5px;
+        margin-right: 0px;
+        margin-top: -10px;
+    }
+    /* texto*/
+
+    .cx_parte2 {
+        width: 300px;
+    }
+    
+    .cx_parte2 p {
+        margin: 0px;
+        padding-bottom: 10px;
+        font-size: 1em;
+        
+    }
+
+    /* habilidade*/
+
+    .home_habi .cx_conteudoHab {
+        width: 290px;
+        height: 400px;
+        margin-left: -30px;
+        margin-top: -200px;
+    }
+
+    .home_habi .cx_conteudoHab h1 {
+        font-size: 1.6em;
+        margin-bottom: 10px;
+    }
+
+    .home_habi .cx_conteudoHab .cx_btn_habilidades .btn_habilidades {
+        width: 40px;
+        height: 40px;
+    }
+
+    .home_habi .cx_conteudoHab .boxinha {
+        margin-bottom: 30px;
+        margin: auto;
+        width: 280px;
+        height: 200px;
+        
+    }
+
+    .home_habi .cx_conteudoHab .boxinha .barra {
+        width: 90%;
+    }
+
+    .home_habi .cx_conteudoHab .boxinha p {
+        font-size: 0.8em;
+        padding: 10px;
+        margin: 10px 0px ;
+    }
+
+    .h1 {
+        margin-top: -150px;
+    }
+
+
+
+    .home_projetos {
+        width: 300px;
+        margin-top: -50px;
+        padding-left: 10px;
+        transform: scale(0.8);
+        
+    }
+
+    footer {
+        width: 97.8%;
+        margin: 0px 0px -2px 5px ;
+        
+    }
+    
+}
+
