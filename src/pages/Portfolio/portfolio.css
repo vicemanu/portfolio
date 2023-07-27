@@ -1,0 +1,18 @@
+body {
+    height: 3000px;
+}
+
+.portfolio {
+    display: flex;
+}
+
+.portfolio--menu {
+    width: 220px;
+    min-height: 100vh;
+    background-color: black;
+}
+
+.portfolio--main {
+    flex: 1;
+    width: 100%;
+}

@@ -1,0 +1,13 @@
+
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    min-height: 100vh;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    z-index: 1;
+    padding: 20px 15px;
+}
