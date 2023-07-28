@@ -58,6 +58,7 @@ export default function About() {
               </p>
               <p className='box__content--text' >
                 {textoTela()}
+                Eu não tenho experiência e nem sou o mestre da programação, mas tenho determinação e desejo me tornar melhor e crescer mais a cada dia, e garanto que vou ser util dentro da sua empresa.
               </p>
               <div className='box__content--botoes'>
                 <button onClick={()=> {setMostrarTela(1)}} className='bl1' style={{background: mostrarTela == 1 ? 'white' : 'transparent'}}></button>
