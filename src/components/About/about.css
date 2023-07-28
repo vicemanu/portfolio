@@ -1,0 +1,247 @@
+.about {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 0px;
+}
+
+.about--title {
+    font-size: 1.8em;
+    color: white;
+    margin-top: 20px;
+}
+
+.about--container {
+    width: 320px;
+    height: 640px;
+    margin: 20px auto;
+    box-shadow: 2px 5px 11px 1px #000000b7;
+    border-radius: 20px;
+}
+
+.about__container--box__about {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background:  top center no-repeat;
+    background-size: cover;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.box__about--shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(to top,rgba(0, 0, 0, 0.897), transparent);
+    border-radius: 20px 20px 0px 0px;
+
+}
+
+.box__about__shadow--redes {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: black;
+    width: 180px;
+    border-radius: 10px;
+    padding: 5px 4px;
+}
+
+.box__about__shadow--curriculo, .box__about__shadow--projetos {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    background-color: black;
+    padding: 4px;
+    border-radius: 8px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+
+.box__about__shadow--curriculo:hover, .box__about__shadow--projetos:hover {
+    color: var(--color3);
+}
+
+.box__about__shadow--curriculo:hover::after{
+    content: "Curriculo";
+    margin-left: 5px;
+    font-size: 0.8em;
+    
+}
+
+.box__about__shadow--projetos:hover::after{
+    content: "Projetos";
+    margin-left: 5px;
+    font-size: 0.8em;
+}
+
+.box__about__shadow--curriculo {
+    top: 20px;
+    right: 10px;
+}
+
+.box__about__shadow--projetos {
+    top: 60px;
+    right: 10px;
+}
+
+.box__about__shadow--funcao {
+    color: var(--color3);
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.9em;
+    width: 100%;
+    text-align: center;
+
+
+}
+
+
+
+
+.about__container--box__content {
+    width: 100%;
+    height: 340px;
+    background-color: #181717;
+    border-radius: 0px 0px 20px 20px;
+    position: relative;
+}
+
+.box__content--text {
+    color: white;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.box__content--btn__left, .box__content--btn__right {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 1.2em;
+    position: absolute;
+    cursor: pointer;
+}
+
+.box__content--btn__left {
+    left: -26px;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+
+.box__content--btn__right {
+    right: -26px;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+
+.box__content--title {
+    text-align: center;
+    font-size: 1.05em;
+    margin-bottom: 24px;
+}
+
+.box__content--title strong {
+    color: var(--color3);
+}   
+.box__content--text {
+    font-size: 0.92em;
+    text-indent: 16px;
+}
+
+.box__content--botoes {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 20px;
+}
+.bl1, .bl2, .bl3 {
+    width: 15px;
+    height: 15px;
+    margin: 0px 4px;
+    display: block;
+    border-radius: 50%;
+    border: 1px solid white;
+    background-color: transparent;
+    box-shadow: 0px 1px 3px rgba(255, 255, 255, 0.616);
+    cursor: pointer;
+}
+
+
+@media screen and (min-width: 920px) {
+    .about--container {
+        width: 630px;
+        height: 600px;
+        display: flex;
+        gap: 40px;
+        box-shadow: none;
+        align-items: center;
+        
+    }
+    .about__container--box__about {
+        position: relative;
+        width: 320px;
+        height: 480px;
+        border-radius: 20px;
+    }
+
+    .box__about--shadow {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        box-shadow: 2px 5px 11px 1px #000000b7;
+    }
+
+    .box__about__shadow--redes {
+        bottom: 52px;
+    }
+
+    .box__about__shadow--funcao {
+        bottom: 30px;
+    }
+
+
+    .about__container--box__content {
+        width: 340px;
+        border-radius: 20px;
+        box-shadow: 2px 5px 11px 1px #000000b7;
+    }
+}
+
+@media screen and (min-width: 1100px) {
+    .about--container {
+        min-width: 800px;
+        gap: 80px;
+    }
+    .about__container--box__about {
+        height: 540px;
+    }
+
+    .box__about__shadow--redes {
+        bottom: 58px;
+    }
+
+    .about__container--box__content {
+        width: 420px;
+        border-radius: 20px;
+    }
+
+}
+
+@media screen and (min-width: 1200px) {
+    .about__container--box__about {
+        width: 360px;
+    }
+
+}

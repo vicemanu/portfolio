@@ -1,6 +1,7 @@
 import Menu from '../../components/Menu'
 import Home from '../../components/Home'
 import './portfolio.css'
+import About from '../../components/About'
 
 
 export default function Portfolio() {
@@ -11,6 +12,7 @@ export default function Portfolio() {
             </menu>
             <main className='portfolio--main'>
                 <Home/>
+                <About/>
             </main>
         </div>
     )

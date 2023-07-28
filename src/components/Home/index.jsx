@@ -4,7 +4,7 @@ import myself from '../../assets/eu3.jpg'
 
 export default function Home() {
     return(
-        <header className='home' style={{background: `url(${wallpaper})`}}>
+        <header className='home' id='home' style={{background: `url(${wallpaper})`}}>
             <div className='home--shadow'>
                 <div className='home--container'>
                     <div className='home__container--img'>

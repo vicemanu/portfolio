@@ -1,0 +1,15 @@
+.redes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.redes a {
+    color: white;
+    text-decoration: none;
+    margin: 0px 6px;
+}
+
+.redes a:hover {
+    color: var(--color3);
+}
