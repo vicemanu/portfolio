@@ -1,29 +1,30 @@
 .projects {
-    width: 80%;
     display: flex;
+    max-width: 80%;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
-    padding-top: 24px;
+    padding: 24px 0px 0px;
     margin: 0 auto;
-
 }
 
 .projects__title {
-  font-size: 2.2em;
+  font-size: 2em;
   color: white;
   margin-bottom: 12px;
   text-align: center;
 }
 
 .projects__carrossel-projects {
-    width: 98%;
-    height: 460px;
+    width: 100%;
+    max-width: 310px;
+    height: 480px;
     overflow-x: scroll;
     display: flex;
     align-items: center;
     gap: 160px;
     padding: 0px 80px;
+    margin-bottom: 20px;
+
 }
 
 .projects__carrossel-projects::-webkit-scrollbar {
@@ -115,4 +116,15 @@
   .github:hover {
     transform: scale(1.2);
   } 
+
+  @media screen and (min-width: 500px) {
+    .projects__carrossel-projects {
+      max-width: 400px;
+    }
+  }
+  @media screen and (min-width: 900px) {
+    .projects__carrossel-projects {
+      max-width: 780px;
+    }
+  }
   

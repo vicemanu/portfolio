@@ -43,15 +43,28 @@ export default function Projects() {
   
     return (
       <section className='projects' id='projetos'>
-        <h2 className='projects__title'>Meus Projetos</h2>
+        <h2 className='projects__title'>Meus Projetos</h2> 
         <div className='projects__carrossel-projects'>
 
 
-     {data?.map(e => {
-
+          {data?.map(e => {
           return <Boxproject key={e.id} link={e.linkSite} img={e.imgProject} nome1={e.title1} nome2={e.title2} desc={e.subtitle} linkgithub={e.linkGithub}/>
         })} 
-
+        {data?.map(e => {
+          return <Boxproject key={e.id} link={e.linkSite} img={e.imgProject} nome1={e.title1} nome2={e.title2} desc={e.subtitle} linkgithub={e.linkGithub}/>
+        })} 
+        {data?.map(e => {
+          return <Boxproject key={e.id} link={e.linkSite} img={e.imgProject} nome1={e.title1} nome2={e.title2} desc={e.subtitle} linkgithub={e.linkGithub}/>
+        })} 
+        {data?.map(e => {
+          return <Boxproject key={e.id} link={e.linkSite} img={e.imgProject} nome1={e.title1} nome2={e.title2} desc={e.subtitle} linkgithub={e.linkGithub}/>
+        })} 
+        {data?.map(e => {
+          return <Boxproject key={e.id} link={e.linkSite} img={e.imgProject} nome1={e.title1} nome2={e.title2} desc={e.subtitle} linkgithub={e.linkGithub}/>
+        })} 
+        {data?.map(e => {
+          return <Boxproject key={e.id} link={e.linkSite} img={e.imgProject} nome1={e.title1} nome2={e.title2} desc={e.subtitle} linkgithub={e.linkGithub}/>
+        })} 
         </div>
       </section>
     )

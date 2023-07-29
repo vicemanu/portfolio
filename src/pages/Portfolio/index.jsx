@@ -22,8 +22,8 @@ export default function Portfolio() {
                 <Home/>
                 <About/>
                 <Skill/>
-                {/* <Projects/>
-                <Curso/>
+                <Projects/>
+                {/* <Curso/>
                 <Footer/> */}
             </main>
         </div>

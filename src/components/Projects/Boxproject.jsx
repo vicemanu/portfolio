@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-no-target-blank */
 import Githubsvg from './github.svg'
 
 export default function Boxproject(props) {
