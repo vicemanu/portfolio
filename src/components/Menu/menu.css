@@ -6,8 +6,149 @@
     left: 0;
     width: 220px;
     min-height: 100vh;
-    background-color: rgb(0, 0, 0);
     color: white;
     z-index: 1;
-    padding: 20px 15px;
+}
+
+.nav-desktop {
+    display: none;
+}
+
+.nav-mobile {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    display: flex;
+    align-items: start;
+    background-color: black;
+    padding: 10px 15px;
+    
+}
+
+.nav-mobile__links {
+    width: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: none;
+    height: 100vh;
+}
+
+.nav-mobile__links img {
+    width: 90%;
+    display: block;
+    margin: -20px auto 0;
+}
+
+.nav-mobile__links > a {
+    display: block;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    margin-top: 6px;
+    
+}
+
+.nav-mobile__socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    margin-top: -28px;
+    
+}
+
+.nav-mobile__socials a {
+    color: white;
+}
+
+
+ .nav-mobile__links a:hover {
+    color: var(--color2);
+}
+
+.nav-mobile__socials i:hover, .nav-mobile__links a:last-child:hover {
+    color: var(--color3);
+}
+
+.nav-mobile__button {
+    top: 10px;
+    right: 10px;
+    font-size: 1.86em;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-left: 12px;
+}
+
+@media screen and (min-width: 920px) {
+
+    .nav-mobile {
+        display: none;
+    }
+
+    .nav-desktop {
+        position: fixed;
+        width: 220px;
+        z-index: 10;
+        display: flex;
+        align-items: start;
+        height: 100vh;
+        background-color: black;
+        padding: 10px 15px;
+    }
+
+    .nav-desktop__links {
+        width: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    
+    .nav-desktop__links img {
+        width: 100%;
+        display: block;
+        margin: -20px auto 0;
+    }
+
+    .nav-desktop__links > a {
+        display: block;
+        text-align: center;
+        color: white;
+        text-decoration: none;
+        margin-top: 6px;
+        
+    }
+
+    .nav-desktop__socials {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        margin-top: -28px;
+    }
+
+
+    .nav-desktop__socials a {
+        color: white;
+    }
+    
+    
+     .nav-desktop__links a:hover {
+        color: var(--color2);
+    }
+    
+    .nav-desktop__socials i:hover, .nav-desktop__links a:last-child:hover {
+        color: var(--color3);
+    }
+
 }

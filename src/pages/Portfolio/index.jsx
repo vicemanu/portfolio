@@ -15,9 +15,9 @@ import Footer from '../../components/Footer'
 export default function Portfolio() {
     return(
         <div className='portfolio'>
-            {/* <menu className='portfolio--menu'>
+            <menu className='portfolio--menu'>
                 <Menu/>
-            </menu> */}
+            </menu>
             <main className='portfolio--main'>
                 <Home/>
                 <About/>
