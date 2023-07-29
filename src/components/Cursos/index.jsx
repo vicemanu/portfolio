@@ -65,6 +65,21 @@ export default function Cursos() {
           {data?.map(e => {
             return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
           })}
+          {data?.map(e => {
+            return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
+          })}
+          {data?.map(e => {
+            return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
+          })}
+          {data?.map(e => {
+            return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
+          })}
+          {data?.map(e => {
+            return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
+          })}
+          {data?.map(e => {
+            return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
+          })}
 
           </div>
       </section>

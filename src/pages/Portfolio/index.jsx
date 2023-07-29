@@ -23,8 +23,8 @@ export default function Portfolio() {
                 <About/>
                 <Skill/>
                 <Projects/>
-                {/* <Curso/>
-                <Footer/> */}
+                <Curso/>
+                <Footer/>
             </main>
         </div>
     )
