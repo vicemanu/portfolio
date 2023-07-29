@@ -47,7 +47,7 @@
 }
 
 .container-skills__box-info-skills {
-    margin: 0 auto;
+    margin: 20px auto 0px;
     width: 300px;
     height: 280px;
     background-color: transparent;
@@ -126,6 +126,11 @@
     cursor: pointer;
     transition: all 0.8s;
 }
+
+
+.container-skills--butons::-webkit-scrollbar {
+  height: 8px;
+}
   
   
 .container-skills__buttom-skills:hover {
@@ -142,6 +147,7 @@
       width: 320px;
   }
 
+}
 
   @media screen and (min-width: 1000px) {
 

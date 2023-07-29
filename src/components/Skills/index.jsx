@@ -10,7 +10,7 @@ export default function Skills() {
   const [nome,setNome] = useState('')
   const [nivel , setNivel] = useState('')
   const [texto, setTexto] = useState('')
-  const [imglog,setImg] = useState('')
+  const [imglog,setImg] = useState('img/aboutme/img6.svg')
   const [data, setData] = useState([])
 
   useEffect(()=> {
@@ -80,8 +80,10 @@ export default function Skills() {
                 setImg(e.logImg)
                 return;
             } 
+            
             }><img src={e.srcImg}/></button>
           })}
+          
           </div>
         </div>
       </section>
