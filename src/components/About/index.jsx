@@ -8,13 +8,13 @@ import { db } from '../../firebase'
 
 export default function About() {
 
-  const [mostrarTela, setMostrarTela] = useState('')
-  const [nTela, setNTela] = useState(0)
   const [data, setData] = useState([])
+  const [nTela, setNTela] = useState(0)
 
 
 
   useEffect(()=> {
+    // chama do firebase o conteudo dos textos
     async function buscarprojetos() {
   
       const projetosRef = collection(db, 'text');
@@ -30,27 +30,32 @@ export default function About() {
         setData(lista)
             
       })
-
-      setMostrarTela(data[0]?.text)
+      // mostra na tela
     }
           buscarprojetos()
+          
 
   
   }, [])
 
   const gerarTela = (n) => {
-
-    if(n > 2) {
+    // gerenciamento de codigo para fazer o codigo mostrar na tela
+    if(n> 2) {
       setNTela(0)
-      setMostrarTela(data[0]?.text)
     } else if(n < 0) {
       setNTela(2)
-      setMostrarTela(data[2]?.text)
     } else {
       setNTela(n)
-      setMostrarTela(data[n]?.text)
     }
 
+  }
+
+  function textoTela() {
+    return(
+      <p>
+        {data[nTela]?.text}
+      </p>
+    )
   }
 
 
@@ -95,7 +100,7 @@ export default function About() {
                 Olá meu nome é <strong>Victor Mielke</strong>
               </p>
               <p className='box__content--text' >
-                {mostrarTela}
+                {textoTela()}
                 
               </p>
               <div className='box__content--botoes'>
