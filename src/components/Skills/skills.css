@@ -1,0 +1,159 @@
+.skills {
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 20px;
+    margin-bottom: 40px;
+}
+
+.skills__title {
+    color: white;
+    font-size: 2.1em;
+    margin-bottom: 40px;
+}
+
+.skills__container-skills {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.container-skills__container-full-hab {
+  display: grid;
+  margin: 0 auto;
+  grid-column: 1/6;
+  grid-row: 3/5;
+  gap: 5px;
+}
+
+.container-skills__box-img {
+  margin: 0 auto;
+  width: 300px;
+  grid-column: 1/6;
+  grid-row: 1/2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-skills__box-img img {
+  width: 90%;
+  text-align: center;
+
+
+}
+
+.container-skills__box-info-skills {
+    margin: 0 auto;
+    width: 300px;
+    height: 280px;
+    background-color: transparent;
+    border: 2px solid #111111;
+    box-shadow: 2px 5px 11px 1px #000000b7;
+    border-radius: 10px;
+    grid-column: 1/6;
+    grid-row: 4/5;
+    color: white;
+    padding: 8px 12px;
+
+}
+
+.container-skills__box-info-skills h3 {
+    font-size: 1.4em;
+}
+
+.container-skills__box-info-skills p {
+    font-size: 0.9em;
+    text-align: center;
+    margin-top: 16px;
+}
+
+.box-info-skills__barra {
+    width: 90%;
+    margin: 8px auto;
+    height: 6px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.459);
+    box-shadow: -1px 2px 8px -1px rgba(0, 0, 0, 0.719);
+  }
+  
+  
+  .box-info-skills__barra .iniciante {
+    width: 30%;
+    height: 6px;
+    background-color: var( --color2 );
+    border-radius: 5px;
+  
+  }
+  
+  .box-info-skills__barra .intermediario {
+    width: 60%;
+    height: 6px;
+    background-color: var( --color2 );
+    border-radius: 5px;
+  
+  }
+  
+  .box-info-skills__barra .avançado {
+    width: 75%;
+    height: 6px;
+    background-color: var( --color2 );
+    border-radius: 5px;
+  
+  }
+  
+  .box-info-skills__barra .full {
+    width: 100%;
+    height: 6px;
+    background-color: var( --color2 );
+    border-radius: 5px;
+  
+  }
+
+.container-skills__buttom-skills {
+    background-color: transparent;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #111111;
+    box-shadow: 2px 5px 11px 1px #000000b7;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.8s;
+}
+  
+  
+.container-skills__buttom-skills:hover {
+    transform: scale(1.15);
+  }
+  
+  
+  .container-skills__buttom-skills img{
+  width: 60%;
+  }
+
+  @media screen and (min-width: 500px) {
+    .container-skills__box-info-skills {
+      width: 320px;
+  }
+
+
+  @media screen and (min-width: 1000px) {
+
+    .container-skills__container-full-hab {
+      grid-column: 3/6;
+      grid-row: 1/3;
+    }
+    
+    .container-skills__box-img {
+      width: 380px;
+      grid-column: 1/3;
+      grid-row: 1/2;
+      margin-right: -40px;
+    }
+  }

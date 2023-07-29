@@ -1,0 +1,155 @@
+.cursos {
+    width: 98%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 100px auto 30px;
+    position: relative;
+    height: 400px;
+}
+
+.cursos__title {
+    margin: 26px 0px 12px ;
+    font-size: 2.2em;
+    color: white;
+}
+.cursos__container-cursos {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    padding: 25px 40px;
+    transition: all 0.8s;
+    overflow-x : auto;
+    scroll-behavior: smooth;
+    margin: 0 auto;
+}
+
+.cursos__container-cursos::-webkit-scrollbar {
+    display: none;
+  }
+.container-cursos__left, .container-cursos__right  {
+    position: absolute;
+    margin: 0px;
+    width: 45px;
+    height: 60px;
+    border-radius: 10px;  
+    opacity: 0.8;
+    border: none;
+    background-color: #000;
+    z-index: 5;
+    color: white;
+    font-size: 1.6em;
+    top: 60%;
+    transform: translate(0, -50%);
+    cursor: pointer;
+  }
+  
+  .container-cursos__left {
+    left: 5px;
+  }
+  
+  .container-cursos__right {
+    right: 5px;
+  }
+
+.container-cursos__box-cursos {
+    position: relative;
+    display: block;
+    min-width: 180px;
+    max-width: 180px;
+    height: 220px;
+    background-color: #3b3b3b;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0px 40px;
+    text-decoration: none;    
+}
+.container-cursos__box-cursos::after {
+    content: " ";
+    z-index: -1;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 186px;
+    height: 226px;
+    background-color: #8B11BB;
+    border-radius: 20px;
+    animation: animate 5s linear infinite;
+    box-shadow: 6px 3px 10px 2px rgba(0, 0, 0, 0.356);
+
+
+}
+
+
+
+.container-cursos__box-cursos h4 {
+    font-size: 1em;
+    text-align: center;
+    margin-top: 10px;
+    color: white;
+}
+
+.container-cursos__box-cursos > p {
+    color: rgba(255, 255, 255, 0.562);
+    font-size: 0.9em;
+    margin-top: 4px;
+}
+
+.container-cursos__box-cursos img {
+    width: 60%;
+}
+
+.cursos__container__sobreocurso {
+    width: 280px;
+    height: 220px;
+    background-color: #3b3b3b;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.box-cursos__hover-curso {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #000000a6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    border-radius: 20px;
+    display: none;
+    font-size: 1.2em;
+}
+
+.box-cursos__hover-curso i {
+    font-size: 3.6em;
+}
+
+.container-cursos__box-cursos:hover .box-cursos__hover-curso {
+    display: flex;
+}
+
+@keyframes animate
+{
+    0%
+    {
+        filter: hue-rotate(0deg);
+    }
+    100%
+    {
+        filter: hue-rotate(360deg);
+    }
+}
