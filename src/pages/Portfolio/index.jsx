@@ -21,10 +21,10 @@ export default function Portfolio() {
             <main className='portfolio--main'>
                 <Home/>
                 <About/>
-                <Skill/>
+                {/* <Skill/>
                 <Projects/>
                 <Curso/>
-                <Footer/>
+                <Footer/> */}
             </main>
         </div>
     )
