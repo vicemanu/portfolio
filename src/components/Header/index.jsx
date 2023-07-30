@@ -15,7 +15,7 @@ export default function Header() {
 
             <Link to={"/admin"}>
             <HiDocumentText color='#FFF' size={24}/>
-            Text
+            Textos
             </Link>
 
             <Link to={"/admin/botoes"}>
@@ -32,6 +32,7 @@ export default function Header() {
             <GiArrowScope color='#FFF' size={24}/>
             Cursos
             </Link>
+
 
         </div>
     )

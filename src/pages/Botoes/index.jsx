@@ -8,15 +8,15 @@ import { addDoc, collection } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { toast } from 'react-toastify'
 
-export default function Admin() {
-    const [textoUm, setTextoUm] = useState('')
-    const [textoDois, setTextoDois] = useState('')
-    const [textoTres, setTextoTres] = useState('')
+export default function Botoes() {
+    const [nome, setNome] = useState('')
+    const [cnpj, setCnpj] = useState('')
+    const [endereco, setEndereco] = useState('')
 
-    async function handleEditText(e) {
+    async function handleRegister(e) {
         e.preventDefault();
 
-        if(textoUm !== '' && textoDois !== '' && textoTres !== '') {
+        if(nome !== '' && cnpj !== '' && endereco !== '') {
             await addDoc(collection(db,"customers"), {
                 nomeFantasia: nome,
                 cnpj: cnpj,
@@ -47,30 +47,30 @@ export default function Admin() {
                 </Title>
 
                 <div className="container">
-                    <form className="form-profile" onSubmit={e => handleEditText(e)}>
-
-                        <label htmlFor="nome">Texto 1</label>
-                        <textarea type="text" 
+                    <form className="form-profile" onSubmit={e => handleRegister(e)}>
+                        
+                        <label htmlFor="nome">Nome Fantasia</label>
+                        <input type="text" 
                         id='nome'
-                        placeholder='insira um texto'
-                        value={textoUm}
-                        onChange={e => setTextoUm(e.target.value)} 
+                        placeholder='Nome da empresa'
+                        value={nome}
+                        onChange={e => setNome(e.target.value)} 
                         />
 
-                        <label htmlFor="cnpj">Texto 2</label>
-                        <textarea type="text" 
-                        id='nome'
-                        placeholder='insira um texto'
-                        value={textoDois}
-                        onChange={e => setTextoDois(e.target.value)} 
+                        <label htmlFor="cnpj">CNPJ</label>
+                        <input type="text" 
+                        id='cnpj'
+                        placeholder='Digite o CNPJ'
+                        value={cnpj}
+                        onChange={e => setCnpj(e.target.value)} 
                         />
 
-                        <label htmlFor="endereco">Texto 3</label>
-                        <textarea type="text" 
-                        id='nome'
-                        placeholder='insira um texto'
-                        value={textoTres}
-                        onChange={e => setTextoTres(e.target.value)} 
+                        <label htmlFor="endereco">Endereço</label>
+                        <input type="text" 
+                        id='endereco'
+                        placeholder='Endereço da empresa'
+                        value={endereco}
+                        onChange={e => setEndereco(e.target.value)} 
                         />
 
                         <button type='submit'>Salvar</button>

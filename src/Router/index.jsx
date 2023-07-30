@@ -10,8 +10,14 @@ export default function Router() {
     return(
         <Routes>
             <Route path="/" element={<Portfolio/>}/>
-            <Route path="/admin" element={<Private><Admin/></Private>}/>
             <Route path="/login" element={<Login/>}/>
+            <Route path="/admin" 
+            element={
+                <Private>
+                <Admin/>
+                </Private>}
+            />
+
             
         </Routes>
     )
