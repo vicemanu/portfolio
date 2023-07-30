@@ -2,7 +2,11 @@
 export default function Boxcurso(props) {
     
       return (
-              <button onClick={() => props.setCursoTela(true)} className='container-cursos__box-cursos'>
+              <button onClick={() => {
+                props.setCursoTela(true)
+                props.setNumCursoTela(props.index)
+                }
+              } className='container-cursos__box-cursos'>
                     <img src={props.img} alt="" />
                   <h4>{props.name}</h4>
                   <p>{props.curso}</p>

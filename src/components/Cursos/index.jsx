@@ -11,6 +11,7 @@ export default function Cursos() {
 
   const [data, setData] = useState([])
   const [cursoTela, setCursoTela] = useState(false)
+  const [numCursoTela, setNumCursoTela] = useState()
 
   useEffect(()=> {
     async function buscarprojetos() {
@@ -33,7 +34,6 @@ export default function Cursos() {
       })
     }
           buscarprojetos()
-          console.log(data)
   
   
   }, [])
@@ -61,14 +61,14 @@ export default function Cursos() {
         <button className='container-cursos__right' onClick={()=> {irParaDireita()}} ><i className="bi bi-caret-right-fill"></i></button> 
 
           <div className='cursos__container-cursos' ref={carrossel}>
-          {data?.map(e => {
-            return <Boxcurso key={e.id} setCursoTela={setCursoTela} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
+          {data?.map((e, index) => {
+            return <Boxcurso key={e.id} data={e} index={index} setCursoTela={setCursoTela} setNumCursoTela={setNumCursoTela}  link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
           })}
           </div>
           {cursoTela && <div className='cursotela'>
             <div className='cursotela--box'>
             <button className='close' onClick={() => setCursoTela(false)}><i className="bi bi-x"></i></button>
-            <h2>{data.nomeDoCurso}</h2>
+            <h2>{data[numCursoTela]?.nomeDoCurso}</h2>
             </div>
           </div>}
       </section>
