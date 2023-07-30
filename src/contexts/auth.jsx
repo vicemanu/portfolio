@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { auth, db } from '../firebase'
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { auth } from '../firebase'
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -35,63 +34,25 @@ function AuthProvider({ children }) {
 
     async function signIn(email, password) {
         setLoadingAuth(true);
-
         await signInWithEmailAndPassword(auth, email, password)
         .then( async (value)=> {
             let uid = value.user.uid;
 
-            const docRef = doc(db, "users", uid);
-            const docSnap = await getDoc(docRef);
-
             let data = {
                 uid: uid,
-                nome: docSnap.data().name,
                 email: value.user.email,
-                avatarUrl: docSnap.data().avatarUrl
             }
 
             setUser(data);
             storageUser(data);
             setLoadingAuth(false)
             toast.success("Bem-vindo de volta!")
-            navigate("/dashboard")
+            navigate("/admin")
         })
         .catch(error => {
             console.log(error)
             setLoadingAuth(false)
             toast.error("Ops, algo deu errado!")
-        })
-    }
-
-    async function signUp(email, password, name) {
-        setLoadingAuth(true);
-        
-        await createUserWithEmailAndPassword(auth, email, password)
-        .then( async (value) => {
-            let uid = value.user.uid
-
-            await setDoc(doc(db, "users", uid), {
-                nome: name,
-                avatarUrl: null
-            })
-            .then(()=> {
-                let data = {
-                    uid: uid,
-                    nome: name,
-                    email: value.user.email,
-                    avatarUrl: null
-                }
-                setUser(data);
-                storageUser(data);
-                setLoadingAuth(false);
-                toast.success("Seja bem-vindo ao sistema!");
-                navigate("/dashboard");
-
-            })
-        })
-        .catch(error => {
-            console.log(error)
-            setLoadingAuth(false)
         })
     }
 
@@ -111,7 +72,6 @@ function AuthProvider({ children }) {
             signed: !!user,
             user,
             signIn,
-            signUp,
             logout,
             loadingAuth,
             loading,
