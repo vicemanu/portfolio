@@ -162,23 +162,58 @@
 
 .cursotela--box {
     width: 320px;
-    height: 360px;
+    min-height: 360px;
     background-color: #1D1D1D;
     box-shadow: 6px 3px 10px 2px rgba(0, 0, 0, 0.356);
     border-radius: 20px;
     position: relative;
+    padding: 25px;
+    color: white;
 
+}
+
+.cursotela__box--title {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.cursotela__box--title::after {
+    content: " Horas";
+}
+
+.cursotela__box--escola {
+    color: rgba(255, 255, 255, 0.685);
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.cursotela__box--habilidade__lista {
+    padding: 10px 25px;
+    color: rgba(255, 255, 255, 0.685);
 }
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 6px;
+    right: 6px;
     color: white;
-    font-size: 2em;
+    font-size: 1.9em;
     border: none;
     background-color: transparent;
     cursor: pointer;
+}
+
+.cursotela__box--link {
+    position: absolute;
+    bottom: 25px;
+    color: var(--color3);
+    text-decoration: none;
+    margin-top: 30px;
+}
+
+.cursotela__box--link:hover {
+    color: white;
+    text-decoration: underline;
 }
 
 @keyframes animate

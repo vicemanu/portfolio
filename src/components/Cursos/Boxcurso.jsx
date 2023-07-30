@@ -12,7 +12,7 @@ export default function Boxcurso(props) {
                   <p>{props.curso}</p>
                   <div className='box-cursos__hover-curso'>
                     <i className="bi bi-link-45deg"></i>
-                    <p>Abrir link</p>
+                    Abrir descrição
                   </div>
               </button>
               

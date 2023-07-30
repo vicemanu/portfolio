@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { useRef } from 'react';
 import Boxcurso from './Boxcurso';
 import './cursos.css'
@@ -26,6 +27,8 @@ export default function Cursos() {
             colegio: doc.data().colegio,
             certificado: doc.data().certificado,
             img: doc.data().img,
+            habilidades: doc.data().habilidades,
+            horas: doc.data().horas,
             id: doc.id
   
           })
@@ -68,7 +71,19 @@ export default function Cursos() {
           {cursoTela && <div className='cursotela'>
             <div className='cursotela--box'>
             <button className='close' onClick={() => setCursoTela(false)}><i className="bi bi-x"></i></button>
-            <h2>{data[numCursoTela]?.nomeDoCurso}</h2>
+            <h3 className='cursotela__box--title'>{data[numCursoTela]?.nomeDoCurso} - {data[numCursoTela]?.horas}</h3>
+            <h5 className='cursotela__box--escola'> {data[numCursoTela]?.colegio} </h5>
+            <h4 className='cursotela__box--habilidade'>Habilidades aprendidas:</h4>
+
+             <ul className='cursotela__box--habilidade__lista'>
+              {data[numCursoTela].habilidades.map((e, index) => {
+                return(
+                  <li key={index}>{e}</li>
+                )
+              })}
+             </ul>
+            
+              <a className='cursotela__box--link' target="_blank" href={data[numCursoTela]?.certificado}>Ver certificado <i className="bi bi-box-arrow-up-right"></i></a>
             </div>
           </div>}
       </section>
