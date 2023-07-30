@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 export default function Cursos() {
 
   const [data, setData] = useState([])
+  const [cursoTela, setCursoTela] = useState(false)
 
   useEffect(()=> {
     async function buscarprojetos() {
@@ -20,12 +21,10 @@ export default function Cursos() {
         let lista  = [];
         snapshot.forEach((doc)=> {
           lista.push({
-            title1: doc.data().title1,
-            title2: doc.data().title2,
-            linkSite: doc.data().linkSite,
-            imgProject: doc.data().imgProject,
-            subtitle: doc.data().subtitle,
-            linkGithub: doc.data().linkGithub,
+            nomeDoCurso: doc.data().nomeDoCurso,
+            colegio: doc.data().colegio,
+            certificado: doc.data().certificado,
+            img: doc.data().img,
             id: doc.id
   
           })
@@ -63,25 +62,15 @@ export default function Cursos() {
 
           <div className='cursos__container-cursos' ref={carrossel}>
           {data?.map(e => {
-            return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
+            return <Boxcurso key={e.id} setCursoTela={setCursoTela} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
           })}
-          {data?.map(e => {
-            return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
-          })}
-          {data?.map(e => {
-            return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
-          })}
-          {data?.map(e => {
-            return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
-          })}
-          {data?.map(e => {
-            return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
-          })}
-          {data?.map(e => {
-            return <Boxcurso key={e.id} link={e.certificado} img={e.img}  name={e.nomeDoCurso} curso={e.colegio}/>
-          })}
-
           </div>
+          {cursoTela && <div className='cursotela'>
+            <div className='cursotela--box'>
+            <button className='close' onClick={() => setCursoTela(false)}><i className="bi bi-x"></i></button>
+            <h2>{data.nomeDoCurso}</h2>
+            </div>
+          </div>}
       </section>
     )
   }
