@@ -1,5 +1,5 @@
 
-import './admin.css'
+import './botoes.css'
 import { HiDocumentText } from 'react-icons/hi2'
 import Header from '../../components/Header'
 import Title from '../../components/Title'
