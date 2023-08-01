@@ -3,39 +3,57 @@ import './admin.css'
 import { HiDocumentText } from 'react-icons/hi2'
 import Header from '../../components/Header'
 import Title from '../../components/Title'
-import { useState } from 'react'
-import { addDoc, collection } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
+import { collection, doc, getDocs, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { toast } from 'react-toastify'
 
 export default function Admin() {
-    const [textoUm, setTextoUm] = useState('')
-    const [textoDois, setTextoDois] = useState('')
-    const [textoTres, setTextoTres] = useState('')
+        const [data, setData] = useState()
+
+
+    useEffect(()=> {
+        async function buscaTexto() {
+      
+          const projetosRef = collection(db, 'text');
+      
+          await getDocs(projetosRef).then((snapshot) => {
+            let lista  = [];
+            snapshot.forEach((doc)=> {
+              lista.push({
+                text1: doc.data().text1,
+                text2: doc.data().text2,
+                text3: doc.data().text3
+      
+              })
+             })
+            setData(lista[0])    
+          })
+        }
+        buscaTexto()
+      
+      }, [])
+
+
+
 
     async function handleEditText(e) {
         e.preventDefault();
 
-        if(textoUm !== '' && textoDois !== '' && textoTres !== '') {
-            await addDoc(collection(db,"customers"), {
-                nomeFantasia: nome,
-                cnpj: cnpj,
-                endereco: endereco,
-            })
+        if(data.text1 !== '' && data.text2 !== '' && data.text3 !== '') {
+            await updateDoc(doc(db,"text","I5pKDEIRPsFdAV6uDyrE"), data)
             .then(()=> {
-                setNome('')
-                setCnpj('')
-                setEndereco('')
-                toast.success("Empresa registrada!")
             })
             .catch(error => {
                 console.log(error)
                 toast.error("Erro ao fazer cadastro")
             })
+
         } else {
             toast.error("Preencha todos os campos!")
         }
     }
+
 
     return(
         <div>
@@ -49,29 +67,37 @@ export default function Admin() {
                 <div className="container">
                     <form className="form-profile" onSubmit={e => handleEditText(e)}>
 
-                        <label htmlFor="nome">Texto 1</label>
+                        <label htmlFor="text1">Texto 1</label>
                         <textarea type="text" 
-                        id='nome'
+                        id='text1'
                         placeholder='insira um texto'
-                        value={textoUm}
-                        onChange={e => setTextoUm(e.target.value)} 
+                        value={data?.text1}
+                        onChange={(e) => {
+                            setData({...data, text1: e.target.value})
+                        }}
                         />
 
-                        <label htmlFor="cnpj">Texto 2</label>
+                         <label htmlFor="text2">Texto 2</label>
                         <textarea type="text" 
-                        id='nome'
+                        id='text2'
                         placeholder='insira um texto'
-                        value={textoDois}
-                        onChange={e => setTextoDois(e.target.value)} 
-                        />
+                        value={data?.text2}
+                        onChange={(e) => {
+                            setData({...data, text2: e.target.value})
+                        }}
+                        /> 
+                        
+                        
+                        <label htmlFor="text3">Texto 3</label>
+                        <textarea type="text" 
+                        id='text3'
+                        placeholder='insira um texto'
+                        value={data?.text3}
+                        onChange={(e) => {
+                            setData({...data, text3: e.target.value})
 
-                        <label htmlFor="endereco">Texto 3</label>
-                        <textarea type="text" 
-                        id='nome'
-                        placeholder='insira um texto'
-                        value={textoTres}
-                        onChange={e => setTextoTres(e.target.value)} 
-                        />
+                        }}
+                        /> 
 
                         <button type='submit'>Salvar</button>
                     </form>
