@@ -1,6 +1,7 @@
 
 import './botoes.css'
 import { GiButtonFinger } from 'react-icons/gi'
+import { FiUpload } from 'react-icons/fi'
 import Header from '../../components/Header'
 import Title from '../../components/Title'
 import { useEffect, useState } from 'react'
@@ -9,10 +10,13 @@ import { collection, doc, getDocs, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { toast } from 'react-toastify'
 
+import Avatar from '../../assets/avatar.png'
+
 export default function Botoes() {
         const [data, setData] = useState()
-        const [editData, setEditData] = useState({title: "", nlv: "", text: "", srcImg: ""})
-        const [imgBtn, setImgBtn] = useState()
+        const [edit, setEdit] = useState(false)
+        const [editData, setEditData] = useState({title: "", nlv: "", text: "", srcImg: null})
+        const [imageAvatar, setImageAvatar] = useState(null)
 
 
     useEffect(()=> {
@@ -41,24 +45,6 @@ export default function Botoes() {
       
       
         }, [])
-        
-        
-        async function handleEditBottons(e) {
-        e.preventDefault();
-
-        if(data.text1 !== '' && data.text2 !== '' && data.text3 !== '') {
-            await updateDoc(doc(db,"text","I5pKDEIRPsFdAV6uDyrE"), data)
-            .then(()=> {
-            })
-            .catch(error => {
-                console.log(error)
-                toast.error("Erro ao fazer cadastro")
-            })
-
-        } else {
-            toast.error("Preencha todos os campos!")
-        }
-    }
 
     const carrossel = useRef(null)
 
@@ -70,6 +56,49 @@ export default function Botoes() {
     const irParaEsquerda = ()=> {
 
         carrossel.current.scrollLeft -= 300;
+    }
+
+    function handleFile(e) {
+        if(e.target.files[0]) {
+            const image = e.target.files[0];
+
+
+            if(image.type === 'image/jpeg' || image.type === 'image/png') {
+                setImageAvatar(image)
+                setEditData({...setData, srcImg: URL.createObjectURL(image)})
+            } else {
+                alert("envie uma imagem do tipo PNG ou JPEG")
+                setImageAvatar(null)
+            }
+        }
+    }
+
+
+    async function handleEditBottons(e) {
+        e.preventDefault();
+
+        if(editData.title !== '' && editData.nlv !== '' && editData.text !== '' && editData.srcImg !== "") {
+
+            if(edit) {
+                
+
+
+
+            } else {
+                await updateDoc(doc(db,"text","I5pKDEIRPsFdAV6uDyrE"), data)
+                .then(()=> {
+                })
+                .catch(error => {
+                console.log(error)
+                toast.error("Erro ao fazer cadastro")
+                })
+            }
+
+            
+
+        } else {
+            toast.error("Preencha todos os campos!")
+        }
     }
 
 
@@ -99,9 +128,22 @@ export default function Botoes() {
                 <div className="container">
                     <form className="form-profile" onSubmit={e => handleEditBottons(e)}>
 
-                        <label htmlFor="text1">Titulo</label>
+                    <label className="label-avatar">
+                            <span htmlFor="">
+                                <FiUpload color="#000" size={25}/>
+                            </span>
+
+                            <input type="file" accept="image/*" onChange={handleFile} /><br/>
+                            {editData.srcImg === null ? (
+                                <img src={Avatar} alt="Foto de perfil"/>
+                            ): (
+                                <img src={editData.srcImg} alt="Foto de perfil"/>
+                            )}
+                    </label>
+
+                        <label htmlFor="title">Titulo</label>
                         <input type="text" 
-                        id='text1'
+                        id='title'
                         placeholder='insira um titulo'
                         value={editData.title}
                         onChange={(e) => {
@@ -109,8 +151,9 @@ export default function Botoes() {
                         }}
                         />
 
-                        <label htmlFor="text2">Texto 2</label>
+                        <label htmlFor="nvl">Nivel de Habilidade</label>
                         <select 
+                        id='nvl'
                         value={editData.nlv}
                         onChange={(e) => {
                             setEditData({...editData, nlv: e.target.value})
@@ -122,14 +165,13 @@ export default function Botoes() {
                         </select> 
                         
                         
-                        <label htmlFor="text3">Texto 3</label>
+                        <label htmlFor="text">Texto</label>
                         <textarea type="text" 
-                        id='text3'
-                        placeholder='insira um texto'
-                        value={data?.text3}
+                        id='text'
+                        placeholder='Escreva um pouco da habilidade...'
+                        value={editData.text}
                         onChange={(e) => {
-                            setData({...data, text3: e.target.value})
-
+                            setEditData({...editData, text: e.target.value})
                         }}
                         /> 
 
