@@ -2,22 +2,26 @@
 import './botoes.css'
 import { GiButtonFinger } from 'react-icons/gi'
 import { FiUpload } from 'react-icons/fi'
-import Header from '../../components/Header'
-import Title from '../../components/Title'
-import { useEffect, useState } from 'react'
-import { useRef } from 'react';
-import { collection, doc, getDocs, updateDoc } from 'firebase/firestore'
-import { db } from '../../firebase'
 import { toast } from 'react-toastify'
 
+import Header from '../../components/Header'
+import Title from '../../components/Title'
 import Avatar from '../../assets/avatar.png'
+
+import { useEffect, useState, useRef } from 'react'
+import { addDoc, collection, doc, getDocs, updateDoc } from 'firebase/firestore'
+import { db, storage } from '../../firebase'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+
 
 export default function Botoes() {
         const [data, setData] = useState()
         const [edit, setEdit] = useState(false)
-        const [editData, setEditData] = useState({title: "", nlv: "", text: "", srcImg: null})
+        const [editData, setEditData] = useState({title: "", nlv: "iniciante", text: "", srcImg: null})
         const [imageAvatar, setImageAvatar] = useState(null)
+        const [load, setLoad] = useState(false)
 
+    // Chamada dos botões existentes    
 
     useEffect(()=> {
         async function buscarbotoes() {
@@ -44,7 +48,11 @@ export default function Botoes() {
                 console.log(data)
       
       
-        }, [])
+        }, [load])
+
+
+// Sistema de carrossel
+
 
     const carrossel = useRef(null)
 
@@ -58,6 +66,8 @@ export default function Botoes() {
         carrossel.current.scrollLeft -= 300;
     }
 
+// Carregando a Imagem do botão
+
     function handleFile(e) {
         if(e.target.files[0]) {
             const image = e.target.files[0];
@@ -65,7 +75,7 @@ export default function Botoes() {
 
             if(image.type === 'image/jpeg' || image.type === 'image/png') {
                 setImageAvatar(image)
-                setEditData({...setData, srcImg: URL.createObjectURL(image)})
+                setEditData({...editData, srcImg: URL.createObjectURL(image)})
             } else {
                 alert("envie uma imagem do tipo PNG ou JPEG")
                 setImageAvatar(null)
@@ -73,32 +83,50 @@ export default function Botoes() {
         }
     }
 
+// Editar botão
+
+async function editButton() {
+
+}
+
+// Criar botão
+
+async function addButton(URL) {
+    await addDoc(collection(db, "botoes"), {
+        title: editData.title,
+        text: editData.text,
+        srcImg: URL,
+        nlv: editData.nlv,
+    })
+
+}
+
+
+
+// Enviando dados para o firebase
 
     async function handleEditBottons(e) {
         e.preventDefault();
-
-        if(editData.title !== '' && editData.nlv !== '' && editData.text !== '' && editData.srcImg !== "") {
-
-            if(edit) {
-                
-
-
-
-            } else {
-                await updateDoc(doc(db,"text","I5pKDEIRPsFdAV6uDyrE"), data)
-                .then(()=> {
+        setLoad(true)
+        const uploadRef =  ref(storage, `images/botoes/${imageAvatar.name}`)
+        const uploadTask = uploadBytes(uploadRef, imageAvatar)
+        .then((snapshot)=> {
+            getDownloadURL(snapshot.ref).then(async (downloadURL)=> {
+                setEditData({...editData, srcImg: downloadURL})
+                if(edit) {
+                    return ""
+                } else {
+                    addButton(downloadURL)
+                }
+                }).then(()=> {
+                    toast.success("Atualizado com sucesso")
+                    setLoad(false)
                 })
-                .catch(error => {
+        })
+        .catch(error => {
                 console.log(error)
-                toast.error("Erro ao fazer cadastro")
-                })
-            }
-
-            
-
-        } else {
-            toast.error("Preencha todos os campos!")
-        }
+                toast.error("ops erro ao registrar")
+        })
     }
 
 
@@ -116,9 +144,13 @@ export default function Botoes() {
                     <button className='container-bottons__left' onClick={()=> {irParaEsquerda()}}><i className="bi bi-caret-left-fill"></i></button>
                     <button className='container-bottons__right' onClick={()=> {irParaDireita()}} ><i className="bi bi-caret-right-fill"></i></button> 
 
-                    {
-                        data?.map(e => {
-                            return <button key={e.id} className="container__bottons-btn"><img src={e.srcImg}/></button>
+                    {data?.map(e => {
+                            return (
+                                <button key={e.id} className="container__bottons-btn">
+                                    <img src={e.srcImg} alt="" />
+                                </button>
+                            )
+                            
                         })
                     }
                     </div>
@@ -128,7 +160,7 @@ export default function Botoes() {
                 <div className="container">
                     <form className="form-profile" onSubmit={e => handleEditBottons(e)}>
 
-                    <label className="label-avatar">
+                    <label className="img--botoes">
                             <span htmlFor="">
                                 <FiUpload color="#000" size={25}/>
                             </span>
