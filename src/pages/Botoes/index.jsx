@@ -11,7 +11,8 @@ import { toast } from 'react-toastify'
 
 export default function Botoes() {
         const [data, setData] = useState()
-        const [editData, setEditData] = useState([])
+        const [editData, setEditData] = useState({title: "", nlv: "", text: "", srcImg: ""})
+        const [imgBtn, setImgBtn] = useState()
 
 
     useEffect(()=> {
@@ -101,22 +102,24 @@ export default function Botoes() {
                         <label htmlFor="text1">Titulo</label>
                         <input type="text" 
                         id='text1'
-                        placeholder='insira um texto'
-                        value={data?.text1}
+                        placeholder='insira um titulo'
+                        value={editData.title}
                         onChange={(e) => {
-                            setData({...data, text1: e.target.value})
+                            setEditData({...editData, title: e.target.value})
                         }}
                         />
 
-                         <label htmlFor="text2">Texto 2</label>
-                        <textarea type="text" 
-                        id='text2'
-                        placeholder='insira um texto'
-                        value={data?.text2}
+                        <label htmlFor="text2">Texto 2</label>
+                        <select 
+                        value={editData.nlv}
                         onChange={(e) => {
-                            setData({...data, text2: e.target.value})
+                            setEditData({...editData, nlv: e.target.value})
                         }}
-                        /> 
+                        >
+                            <option>iniciante</option>
+                            <option>intermediario</option>
+                            <option>avançado</option>
+                        </select> 
                         
                         
                         <label htmlFor="text3">Texto 3</label>

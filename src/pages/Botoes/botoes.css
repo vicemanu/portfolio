@@ -77,11 +77,11 @@
     font-size: 1.4em;
 }
 
-.form-profile input {
+.form-profile input, select {
     height: 40px;
 }
 
-.form-profile textarea, select {
+.form-profile textarea  {
     margin-bottom: 1em;
     padding: 0.7em;
     border: 0;
