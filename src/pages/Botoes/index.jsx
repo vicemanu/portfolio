@@ -16,10 +16,11 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 
 export default function Botoes() {
         const [data, setData] = useState()
-        const [edit, setEdit] = useState(false)
+        const [edit, setEdit] = useState("")
         const [editData, setEditData] = useState({title: "", nlv: "iniciante", text: "", srcImg: null})
         const [imageAvatar, setImageAvatar] = useState(null)
         const [load, setLoad] = useState(false)
+        const [veIndex, setVeIndex] = useState()
 
     // Chamada dos botões existentes    
 
@@ -35,7 +36,7 @@ export default function Botoes() {
                   title: doc.data().title,
                   text: doc.data().text,
                   srcImg: doc.data().srcImg,
-                  nvl: doc.data().nvl,
+                  nlv: doc.data().nlv,
                   logImg: doc.data().logImg,
                   id: doc.id
       
@@ -85,48 +86,78 @@ export default function Botoes() {
 
 // Editar botão
 
-async function editButton() {
-
-}
-
-// Criar botão
-
-async function addButton(URL) {
-    await addDoc(collection(db, "botoes"), {
+async function editButton(URL) {
+    await updateDoc(doc(db, "botoes", edit), {
         title: editData.title,
         text: editData.text,
         srcImg: URL,
         nlv: editData.nlv,
     })
-
+    .then(() => {
+        toast.success("Atualizado com sucesso")
+        setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
+        setEdit("")
+    })
 }
-
-
 
 // Enviando dados para o firebase
 
     async function handleEditBottons(e) {
         e.preventDefault();
         setLoad(true)
-        const uploadRef =  ref(storage, `images/botoes/${imageAvatar.name}`)
-        const uploadTask = uploadBytes(uploadRef, imageAvatar)
-        .then((snapshot)=> {
-            getDownloadURL(snapshot.ref).then(async (downloadURL)=> {
-                setEditData({...editData, srcImg: downloadURL})
-                if(edit) {
-                    return ""
+        if(editData?.title !== "" && editData?.text !== "" && editData?.srcImg) {
+
+            // Editar botão
+
+            if(edit !== "") {
+                if(editData.srcImg == data[veIndex].srcImg) {
+                    editButton(editData.srcImg)
                 } else {
-                    addButton(downloadURL)
+                    const uploadRef =  ref(storage, `images/botoes/${imageAvatar.name}`)
+                    const uploadTask = uploadBytes(uploadRef, imageAvatar)
+                    .then((snapshot)=> {
+                        getDownloadURL(snapshot.ref).then(async (downloadURL)=> {
+                            editButton(downloadURL)
+                        })
+                    })
+                    .catch(error => {
+                            console.log(error)
+                            toast.error("ops erro ao registrar")
+                    })
+    
                 }
-                }).then(()=> {
-                    toast.success("Atualizado com sucesso")
-                    setLoad(false)
+                
+            } else {
+                // Criar botão
+
+                const uploadRef =  ref(storage, `images/botoes/${imageAvatar.name}`)
+                const uploadTask = uploadBytes(uploadRef, imageAvatar)
+                .then((snapshot)=> {
+                    getDownloadURL(snapshot.ref).then(async (downloadURL)=> {
+                        await addDoc(collection(db, "botoes"), {
+                            title: editData.title,
+                            text: editData.text,
+                            srcImg: downloadURL,
+                            nlv: editData.nlv,
+                        })
+                        .then(()=> {
+                            toast.success("Criado com sucesso")
+                            setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
+                            setLoad(false)
+                        })
+                        })
                 })
-        })
-        .catch(error => {
-                console.log(error)
-                toast.error("ops erro ao registrar")
-        })
+                .catch(error => {
+                        console.log(error)
+                        toast.error("ops erro ao registrar")
+                })
+
+
+            }
+
+
+        }
+        
     }
 
 
@@ -144,9 +175,16 @@ async function addButton(URL) {
                     <button className='container-bottons__left' onClick={()=> {irParaEsquerda()}}><i className="bi bi-caret-left-fill"></i></button>
                     <button className='container-bottons__right' onClick={()=> {irParaDireita()}} ><i className="bi bi-caret-right-fill"></i></button> 
 
-                    {data?.map(e => {
+                    {data?.map((e, index) => {
                             return (
-                                <button key={e.id} className="container__bottons-btn">
+                                <button key={e.id} className="container__bottons-btn"
+                                onClick={()=> {
+                                    setEditData({title: e.title, nlv: e.nlv, text: e.text, srcImg: e.srcImg})
+                                    setEdit(e.id)
+                                    setVeIndex(index)
+                                    console.log(editData)
+                                }}
+                                >
                                     <img src={e.srcImg} alt="" />
                                 </button>
                             )

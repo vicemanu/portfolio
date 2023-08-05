@@ -41,6 +41,7 @@
     justify-content: center;
     margin: 0px 8px;
     background-color: #272727;
+    cursor: pointer;
 }
 
 .container__bottons-btn img {
