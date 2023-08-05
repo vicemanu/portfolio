@@ -25,7 +25,7 @@ export default function Skills() {
             title: doc.data().title,
             text: doc.data().text,
             srcImg: doc.data().srcImg,
-            nvl: doc.data().nvl,
+            nlv: doc.data().nlv,
             logImg: doc.data().logImg,
             id: doc.id
 
@@ -75,7 +75,7 @@ export default function Skills() {
             return <button key={e.id} className="container-skills__buttom-skills" onClick={
               ()=>{
                 setNome(e.title)
-                setNivel(e.nvl)
+                setNivel(e.nlv)
                 setTexto(e.text)
                 setImg(e.logImg)
                 return;
