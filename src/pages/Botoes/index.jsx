@@ -9,9 +9,10 @@ import Title from '../../components/Title'
 import Avatar from '../../assets/avatar.png'
 
 import { useEffect, useState, useRef } from 'react'
-import { addDoc, collection, doc, getDocs, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
 import { db, storage } from '../../firebase'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { Await } from 'react-router-dom'
 
 
 export default function Botoes() {
@@ -97,6 +98,7 @@ async function editButton(URL) {
         toast.success("Atualizado com sucesso")
         setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
         setEdit("")
+        setLoad(false)
     })
 }
 
@@ -160,6 +162,22 @@ async function editButton(URL) {
         
     }
 
+
+    // deletar botão
+
+    async function deleteBotao() {
+        setLoad(true)
+        await deleteDoc(doc(db, "botoes", data[veIndex].id))
+        .then(()=> {
+            setLoad(false)
+            toast.success("deletado com sucesso")
+            setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
+            setEdit("")
+        })
+        .catch((e)=> {
+            console.log(e)
+        })
+    }
 
     return(
         <div>
@@ -244,8 +262,14 @@ async function editButton(URL) {
                             setEditData({...editData, text: e.target.value})
                         }}
                         /> 
-
+                        <div className='btn--edit'>
                         <button type='submit'>Salvar</button>
+                        {edit !== "" && <button className='btn--dit_delete'  
+                        onClick={()=>{
+                            deleteBotao()
+                        }}
+                        >Delete</button>}
+                        </div>
                     </form>
                 </div>
             </div>
