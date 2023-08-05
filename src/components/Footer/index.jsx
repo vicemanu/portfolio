@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-target-blank */
 import './footer.css'
 import Redes from '../Redes'
+import { Link } from 'react-router-dom'
 
 export default function Footer() {
   
@@ -32,7 +33,7 @@ export default function Footer() {
             <img src="img/caracriandosite.png" alt="Desenho de um homem criando um site" />
             </div>
           </div>
-            <p className='footer__copy'>Copyright 2022  © <a href="https://victor-mielke-portfolio.vercel.app/">Victor Mielke</a></p>
+            <p className='footer__copy'>Copyright 2022  © <Link to={"/admin"}>Victor Mielke</Link></p>
       </footer>
     )
   }

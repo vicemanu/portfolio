@@ -7,6 +7,38 @@
     margin-bottom: 1em;
 }
 
+.container--bottons {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    height: 60px;
+    position: relative;
+    align-items: center;
+}
+
+.container-bottons__right, .container-bottons__left {
+    position: absolute;
+    top: 50%;
+    transform: translate(0,-50%);
+}
+
+.container-bottons__right {
+    right: -20px;
+}
+
+.container-bottons__left {
+    left: -20px;
+}
+
+.container__bottons-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 1px 1px 1px black;
+
+}
+
 .label-avatar {
     width:  280px;
     height: 280px;
@@ -45,7 +77,11 @@
     font-size: 1.4em;
 }
 
-.form-profile input, textarea, select {
+.form-profile input {
+    height: 40px;
+}
+
+.form-profile textarea, select {
     margin-bottom: 1em;
     padding: 0.7em;
     border: 0;

@@ -1,77 +1,134 @@
 
 import './botoes.css'
-import { HiDocumentText } from 'react-icons/hi2'
+import { GiButtonFinger } from 'react-icons/gi'
 import Header from '../../components/Header'
 import Title from '../../components/Title'
-import { useState } from 'react'
-import { addDoc, collection } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
+import { useRef } from 'react';
+import { collection, doc, getDocs, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { toast } from 'react-toastify'
 
 export default function Botoes() {
-    const [nome, setNome] = useState('')
-    const [cnpj, setCnpj] = useState('')
-    const [endereco, setEndereco] = useState('')
+        const [data, setData] = useState()
+        const [editData, setEditData] = useState([])
 
-    async function handleRegister(e) {
+
+    useEffect(()=> {
+        async function buscarbotoes() {
+
+            const botoesRef = collection(db, 'botoes');
+      
+            await getDocs(botoesRef).then((snapshot) => {
+              let lista  = [];
+              snapshot.forEach((doc)=> {
+                lista.push({
+                  title: doc.data().title,
+                  text: doc.data().text,
+                  srcImg: doc.data().srcImg,
+                  nvl: doc.data().nvl,
+                  logImg: doc.data().logImg,
+                  id: doc.id
+      
+                })
+               })
+              setData(lista)    
+            })
+          }
+                buscarbotoes()
+                console.log(data)
+      
+      
+        }, [])
+        
+        
+        async function handleEditBottons(e) {
         e.preventDefault();
 
-        if(nome !== '' && cnpj !== '' && endereco !== '') {
-            await addDoc(collection(db,"customers"), {
-                nomeFantasia: nome,
-                cnpj: cnpj,
-                endereco: endereco,
-            })
+        if(data.text1 !== '' && data.text2 !== '' && data.text3 !== '') {
+            await updateDoc(doc(db,"text","I5pKDEIRPsFdAV6uDyrE"), data)
             .then(()=> {
-                setNome('')
-                setCnpj('')
-                setEndereco('')
-                toast.success("Empresa registrada!")
             })
             .catch(error => {
                 console.log(error)
                 toast.error("Erro ao fazer cadastro")
             })
+
         } else {
             toast.error("Preencha todos os campos!")
         }
     }
+
+    const carrossel = useRef(null)
+
+    const irParaDireita = ()=> {
+        
+        carrossel.current.scrollLeft += 300;
+    }
+
+    const irParaEsquerda = ()=> {
+
+        carrossel.current.scrollLeft -= 300;
+    }
+
 
     return(
         <div>
             <Header/>
 
             <div className="content">
-                <Title name='Textos'>
-                    <HiDocumentText color='#000' size={24}/>
+                <Title name='Botões'>
+                    <GiButtonFinger color='#000' size={24}/>
                 </Title>
+                
+                <div className='container' ref={carrossel}>
+                    <div className='container--bottons'>
+                    <button className='container-bottons__left' onClick={()=> {irParaEsquerda()}}><i className="bi bi-caret-left-fill"></i></button>
+                    <button className='container-bottons__right' onClick={()=> {irParaDireita()}} ><i className="bi bi-caret-right-fill"></i></button> 
+
+                    {
+                        data?.map(e => {
+                            return <button key={e.id} className="container__bottons-btn"><img src={e.srcImg}/></button>
+                        })
+                    }
+                    </div>
+                </div>
+
 
                 <div className="container">
-                    <form className="form-profile" onSubmit={e => handleRegister(e)}>
+                    <form className="form-profile" onSubmit={e => handleEditBottons(e)}>
+
+                        <label htmlFor="text1">Titulo</label>
+                        <input type="text" 
+                        id='text1'
+                        placeholder='insira um texto'
+                        value={data?.text1}
+                        onChange={(e) => {
+                            setData({...data, text1: e.target.value})
+                        }}
+                        />
+
+                         <label htmlFor="text2">Texto 2</label>
+                        <textarea type="text" 
+                        id='text2'
+                        placeholder='insira um texto'
+                        value={data?.text2}
+                        onChange={(e) => {
+                            setData({...data, text2: e.target.value})
+                        }}
+                        /> 
                         
-                        <label htmlFor="nome">Nome Fantasia</label>
-                        <input type="text" 
-                        id='nome'
-                        placeholder='Nome da empresa'
-                        value={nome}
-                        onChange={e => setNome(e.target.value)} 
-                        />
+                        
+                        <label htmlFor="text3">Texto 3</label>
+                        <textarea type="text" 
+                        id='text3'
+                        placeholder='insira um texto'
+                        value={data?.text3}
+                        onChange={(e) => {
+                            setData({...data, text3: e.target.value})
 
-                        <label htmlFor="cnpj">CNPJ</label>
-                        <input type="text" 
-                        id='cnpj'
-                        placeholder='Digite o CNPJ'
-                        value={cnpj}
-                        onChange={e => setCnpj(e.target.value)} 
-                        />
-
-                        <label htmlFor="endereco">Endereço</label>
-                        <input type="text" 
-                        id='endereco'
-                        placeholder='Endereço da empresa'
-                        value={endereco}
-                        onChange={e => setEndereco(e.target.value)} 
-                        />
+                        }}
+                        /> 
 
                         <button type='submit'>Salvar</button>
                     </form>

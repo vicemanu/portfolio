@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 import { HiDocumentText } from 'react-icons/hi2'
 import { GiButtonFinger, GiArrowScope } from 'react-icons/gi'
 import { GoProjectSymlink } from 'react-icons/go'
+import img from '../../assets/logo.png'
 
 export default function Header() {
 
     return(
         <div className='sidebar'>
             <div>
-                <img src={'img/logo.png'} />
+                <img src={img} />
             </div>
 
             <Link to={"/admin"}>
