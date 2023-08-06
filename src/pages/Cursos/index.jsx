@@ -207,7 +207,9 @@ async function editButton(URL) {
                                 }}
                                 style={{backgroundImage: `url(${e.img})` }}
                                 >
-
+                                <div className='container__bottons-cursos--shadow'></div>
+                                <h2>{e.nomeDoCurso}</h2>
+                                <h3>{e.colegio}</h3>
                                 </button>
                             )
                             

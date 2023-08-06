@@ -48,6 +48,21 @@
     flex-direction: column;
     color: white;
     font-size: 0.7em;
+    position: relative;
+}
+
+.container__bottons-cursos--shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.274);
+    border-radius: 8px;
+}
+
+.container__bottons-cursos h2, .container__bottons-cursos h3 {
+    z-index: 1;
 }
 
 .img--botoes {
