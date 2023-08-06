@@ -183,9 +183,9 @@ async function editButton(URL) {
 
     // Edição da habilidade
 
-    function hendleHabilidadde(ele, index) {
+    function hendleHabilidadde(e, index) {
         console.log(habilidades)
-        habilidades[index] = ele
+        habilidades[index] = e.target.value
         setHabilidades([...habilidades])
     }
 
@@ -289,11 +289,11 @@ async function editButton(URL) {
                             return(
                                 <>
                                     <input type="text"
-                                    key={e} 
+                                    key={index} 
                                     placeholder='insira a habilidade aprendida'
                                     value={habilidades[index]}
                                     onChange={(e) => {
-                                        hendleHabilidadde(e.target.value, index)
+                                        hendleHabilidadde(e, index)
                                     }}
                                     />
                                 </>
