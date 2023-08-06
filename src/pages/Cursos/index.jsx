@@ -23,7 +23,7 @@ export default function Cursos() {
         const [imageAvatar, setImageAvatar] = useState(null)
         const [load, setLoad] = useState(false)
         const [veIndex, setVeIndex] = useState()
-        const [habilidades, setHabilidades] = useState(["", ""])
+        const [habilidades, setHabilidades] = useState([""])
 
     // Chamada dos botões existentes    
 
@@ -89,39 +89,43 @@ export default function Cursos() {
 
 // Editar botão
 
-async function editButton(URL) {
-    await updateDoc(doc(db, "botoes", edit), {
-        title: editData.title,
-        text: editData.text,
-        srcImg: URL,
-        nlv: editData.nlv,
+async function editCurso(URL) {
+    await updateDoc(doc(db, "cursos", edit), {
+        nomeDoCurso: editData.nomeDoCurso,
+        colegio: editData.colegio,
+        img: URL,
+        horas: editData.horas,
+        certificado: editData.certificado,
+        habilidades: habilidades,
     })
     .then(() => {
         toast.success("Atualizado com sucesso")
-        setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
-        setEdit("")
+        setEditData({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] })
         setLoad(false)
+        setHabilidades([""])
+        setEdit("")
     })
 }
 
 // Enviando dados para o firebase
 
-    async function handleEditBottons(e) {
+    async function handleEditCurso(e) {
         e.preventDefault();
         setLoad(true)
-        if(editData?.title !== "" && editData?.text !== "" && editData?.srcImg) {
+        // ({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] })
+        if(editData?.nomeDoCurso !== "" && editData?.colegio !== "" && editData?.horas !== "" && editData?.certificado !== "" && editData?.img && habilidades[0] !== "") {
 
             // Editar botão
 
             if(edit !== "") {
-                if(editData.srcImg == data[veIndex].srcImg) {
-                    editButton(editData.srcImg)
+                if(editData.img == data[veIndex].img) {
+                    editCurso(editData.img)
                 } else {
-                    const uploadRef =  ref(storage, `images/botoes/${imageAvatar.name}`)
+                    const uploadRef =  ref(storage, `images/cursos/${imageAvatar.name}`)
                     const uploadTask = uploadBytes(uploadRef, imageAvatar)
                     .then((snapshot)=> {
                         getDownloadURL(snapshot.ref).then(async (downloadURL)=> {
-                            editButton(downloadURL)
+                            editCurso(downloadURL)
                         })
                     })
                     .catch(error => {
@@ -132,22 +136,25 @@ async function editButton(URL) {
                 }
                 
             } else {
-                // Criar botão
+                // Criar Curso
 
-                const uploadRef =  ref(storage, `images/botoes/${imageAvatar.name}`)
+                const uploadRef =  ref(storage, `images/cursos/${imageAvatar.name}`)
                 const uploadTask = uploadBytes(uploadRef, imageAvatar)
                 .then((snapshot)=> {
                     getDownloadURL(snapshot.ref).then(async (downloadURL)=> {
-                        await addDoc(collection(db, "botoes"), {
-                            title: editData.title,
-                            text: editData.text,
-                            srcImg: downloadURL,
-                            nlv: editData.nlv,
+                        await addDoc(collection(db, "cursos"), {
+                            nomeDoCurso: editData.nomeDoCurso,
+                            colegio: editData.colegio,
+                            img: downloadURL,
+                            horas: editData.horas,
+                            certificado: editData.certificado,
+                            habilidades: habilidades,
                         })
                         .then(()=> {
                             toast.success("Criado com sucesso")
-                            setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
+                            setEditData({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] })
                             setLoad(false)
+                            setHabilidades([""])
                         })
                         })
                 })
@@ -165,15 +172,16 @@ async function editButton(URL) {
     }
 
 
-    // deletar botão
+    // deletar Curso
 
-    async function deleteBotao() {
+    async function deleteCurso() {
         setLoad(true)
-        await deleteDoc(doc(db, "botoes", data[veIndex].id))
+        await deleteDoc(doc(db, "cursos", data[veIndex].id))
         .then(()=> {
             setLoad(false)
             toast.success("deletado com sucesso")
-            setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
+            setEditData({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] })
+            setHabilidades([""])
             setEdit("")
         })
         .catch((e)=> {
@@ -221,7 +229,8 @@ async function editButton(URL) {
                             return (
                                 <button key={e.id} className="container__bottons-cursos"
                                 onClick={()=> {
-                                    setEditData({title: e.title, nlv: e.nlv, text: e.text, srcImg: e.srcImg})
+                                    setEditData({nomeDoCurso: e.nomeDoCurso, colegio: e.colegio, horas: e.horas, img: e.img, certificado: e.certificado, habilidades: [] })
+                                    setHabilidades([...e.habilidades])
                                     setEdit(e.id)
                                     setVeIndex(index)
                                     console.log(editData)
@@ -241,7 +250,7 @@ async function editButton(URL) {
 
 
                 <div className="container">
-                    <form className="form-profile" onSubmit={e => handleEditBottons(e)}>
+                    <form className="form-profile" onSubmit={e => handleEditCurso(e)}>
 
                     <label className="img--botoes">
                             <span htmlFor="">
@@ -326,7 +335,7 @@ async function editButton(URL) {
                         <button type='submit'>Salvar</button>
                         {edit !== "" && <button className='btn--dit_delete'  
                         onClick={()=>{
-                            deleteBotao()
+                            deleteCurso()
                         }}
                         >Delete</button>}
                         </div>

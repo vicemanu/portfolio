@@ -12,6 +12,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.sidebar div > a {
+    padding: 0px;
 }
 
 .sidebar div img{
@@ -42,6 +48,21 @@
 .content {
     margin-left: 200px;
     padding: 1px 16px;
+}
+
+.btn-logout {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255, 0.7);
+    font-size: 1em;
+    position: absolute;
+    bottom: 20px;
+    cursor: pointer;
+}
+
+.btn-logout:hover {
+    color: rgb(161, 9, 9);
 }
 
 
