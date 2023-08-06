@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
-import './botoes.css'
-import { GiButtonFinger } from 'react-icons/gi'
+import './projetos.css'
+import { GoProjectSymlink } from 'react-icons/go'
 import { FiUpload } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 
@@ -15,10 +15,10 @@ import { db, storage } from '../../firebase'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 
 
-export default function Botoes() {
+export default function Projetos() {
         const [data, setData] = useState()
         const [edit, setEdit] = useState("")
-        const [editData, setEditData] = useState({title: "", nlv: "iniciante", text: "", srcImg: null})
+        const [editData, setEditData] = useState({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: ""})
         const [imageAvatar, setImageAvatar] = useState(null)
         const [load, setLoad] = useState(false)
         const [veIndex, setVeIndex] = useState()
@@ -28,17 +28,18 @@ export default function Botoes() {
     useEffect(()=> {
         async function buscarbotoes() {
 
-            const botoesRef = collection(db, 'botoes');
+            const botoesRef = collection(db, 'projetos');
       
             await getDocs(botoesRef).then((snapshot) => {
               let lista  = [];
               snapshot.forEach((doc)=> {
                 lista.push({
-                  title: doc.data().title,
-                  text: doc.data().text,
-                  srcImg: doc.data().srcImg,
-                  nlv: doc.data().nlv,
-                  logImg: doc.data().logImg,
+                  title1: doc.data().title1,
+                  title2: doc.data().title2,
+                  subtitle: doc.data().subtitle,
+                  linkSite: doc.data().linkSite,
+                  imgProject: doc.data().imgProject,
+                  linkGithub: doc.data().linkGithub,
                   id: doc.id
       
                 })
@@ -77,7 +78,7 @@ export default function Botoes() {
 
             if(image.type === 'image/jpeg' || image.type === 'image/png') {
                 setImageAvatar(image)
-                setEditData({...editData, srcImg: URL.createObjectURL(image)})
+                setEditData({...editData, imgProject: URL.createObjectURL(image)})
             } else {
                 alert("envie uma imagem do tipo PNG ou JPEG")
                 setImageAvatar(null)
@@ -87,16 +88,18 @@ export default function Botoes() {
 
 // Editar botão
 
-async function editButton(URL) {
-    await updateDoc(doc(db, "botoes", edit), {
-        title: editData.title,
-        text: editData.text,
-        srcImg: URL,
-        nlv: editData.nlv,
+async function editProjeto(URL) {
+    await updateDoc(doc(db, "projetos", edit), {
+        title1: editData.title1,
+        title2: editData.title2,
+        subtitle: editData.subtitle,
+        linkSite: editData.linkSite,
+        imgProject: URL,
+        linkGithub: editData.linkGithub,
     })
     .then(() => {
         toast.success("Atualizado com sucesso")
-        setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
+        setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: ""})
         setEdit("")
         setLoad(false)
     })
@@ -104,22 +107,22 @@ async function editButton(URL) {
 
 // Enviando dados para o firebase
 
-    async function handleEditBottons(e) {
+    async function handleEditProjeto(e) {
         e.preventDefault();
         setLoad(true)
-        if(editData?.title !== "" && editData?.text !== "" && editData?.srcImg) {
+        if(editData?.title1 !== "" && editData?.title2 !== "" && editData?.subtitle !== "" && editData?.linkSite !== "" && editData?.linkGithub !== "" && editData?.imgProject) {
 
             // Editar botão
 
             if(edit !== "") {
-                if(editData.srcImg == data[veIndex].srcImg) {
-                    editButton(editData.srcImg)
+                if(editData.imgProject == data[veIndex].imgProject) {
+                    editProjeto(editData.imgProject)
                 } else {
-                    const uploadRef =  ref(storage, `images/botoes/${imageAvatar.name}`)
+                    const uploadRef =  ref(storage, `images/projeto/${imageAvatar.name}`)
                     const uploadTask = uploadBytes(uploadRef, imageAvatar)
                     .then((snapshot)=> {
                         getDownloadURL(snapshot.ref).then(async (downloadURL)=> {
-                            editButton(downloadURL)
+                            editProjeto(downloadURL)
                         })
                     })
                     .catch(error => {
@@ -130,21 +133,23 @@ async function editButton(URL) {
                 }
                 
             } else {
-                // Criar botão
+                // Criar Projeto
 
-                const uploadRef =  ref(storage, `images/botoes/${imageAvatar.name}`)
+                const uploadRef =  ref(storage, `images/projeto/${imageAvatar.name}`)
                 const uploadTask = uploadBytes(uploadRef, imageAvatar)
                 .then((snapshot)=> {
                     getDownloadURL(snapshot.ref).then(async (downloadURL)=> {
-                        await addDoc(collection(db, "botoes"), {
-                            title: editData.title,
-                            text: editData.text,
-                            srcImg: downloadURL,
-                            nlv: editData.nlv,
+                        await addDoc(collection(db, "projetos"), {
+                            title1: editData.title1,
+                            title2: editData.title2,
+                            subtitle: editData.subtitle,
+                            linkSite: editData.linkSite,
+                            imgProject: downloadURL,
+                            linkGithub: editData.linkGithub,
                         })
                         .then(()=> {
                             toast.success("Criado com sucesso")
-                            setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
+                            setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: ""})
                             setLoad(false)
                         })
                         })
@@ -167,11 +172,11 @@ async function editButton(URL) {
 
     async function deleteBotao() {
         setLoad(true)
-        await deleteDoc(doc(db, "botoes", data[veIndex].id))
+        await deleteDoc(doc(db, "projetos", data[veIndex].id))
         .then(()=> {
             setLoad(false)
             toast.success("deletado com sucesso")
-            setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
+            setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: ""})
             setEdit("")
         })
         .catch((e)=> {
@@ -184,26 +189,28 @@ async function editButton(URL) {
             <Header/>
 
             <div className="content">
-                <Title name='Botões'>
-                    <GiButtonFinger color='#000' size={24}/>
+                <Title name='Projetos'>
+                <GoProjectSymlink color='#000' size={24}/>
                 </Title>
                 
                 <div className='container' ref={carrossel}>
-                    <div className='container--bottons'>
-                    <button className='container-bottons__left' onClick={()=> {irParaEsquerda()}}><i className="bi bi-caret-left-fill"></i></button>
-                    <button className='container-bottons__right' onClick={()=> {irParaDireita()}} ><i className="bi bi-caret-right-fill"></i></button> 
+                    <div className='container--projeto'>
+                        <button className='container-bottons__left' onClick={()=> {irParaEsquerda()}}><i className="bi bi-caret-left-fill"></i></button>
+                        <button className='container-bottons__right' onClick={()=> {irParaDireita()}} ><i className="bi bi-caret-right-fill"></i></button> 
 
-                    {data?.map((e, index) => {
+                        {data?.map((e, index) => {
                             return (
-                                <button key={e.id} className="container__bottons-btn"
+                                <button key={e.id} className="container__bottons-projeto"
                                 onClick={()=> {
-                                    setEditData({title: e.title, nlv: e.nlv, text: e.text, srcImg: e.srcImg})
+                                    setEditData({title1: e.title1, title2: e.title2, subtitle: e.subtitle, linkSite: e.linkSite, imgProject: e.imgProject, linkGithub: e.linkGithub})
                                     setEdit(e.id)
                                     setVeIndex(index)
                                     console.log(editData)
                                 }}
+                                style={{backgroundImage: `url(${e.imgProject})` }}
                                 >
-                                    <img src={e.srcImg} alt="" />
+                                <h2>{e.title1}</h2>
+                                <h3>{e.title2}</h3>
                                 </button>
                             )
                             
@@ -214,7 +221,7 @@ async function editButton(URL) {
 
 
                 <div className="container">
-                    <form className="form-profile" onSubmit={e => handleEditBottons(e)}>
+                    <form className="form-profile" onSubmit={e => handleEditProjeto(e)}>
 
                     <label className="img--botoes">
                             <span htmlFor="">
@@ -222,46 +229,64 @@ async function editButton(URL) {
                             </span>
 
                             <input type="file" accept="image/*" onChange={handleFile} /><br/>
-                            {editData.srcImg === null ? (
+                            {editData.imgProject === null ? (
                                 <img src={Avatar} alt="Foto de perfil"/>
                             ): (
-                                <img src={editData.srcImg} alt="Foto de perfil"/>
+                                <img src={editData.imgProject} alt="Foto de perfil"/>
                             )}
                     </label>
 
-                        <label htmlFor="title">Titulo</label>
+                        <label htmlFor="title1">Titulo 1</label>
                         <input type="text" 
-                        id='title'
+                        id='title1'
                         placeholder='insira um titulo'
-                        value={editData.title}
+                        value={editData.title1}
                         onChange={(e) => {
-                            setEditData({...editData, title: e.target.value})
+                            setEditData({...editData, title1: e.target.value})
                         }}
                         />
 
-                        <label htmlFor="nvl">Nivel de Habilidade</label>
-                        <select 
-                        id='nvl'
-                        value={editData.nlv}
+                        <label htmlFor="title2">Titulo 2</label>
+                        <input type="text" 
+                        id='title2'
+                        placeholder='insira um titulo'
+                        value={editData.title2}
                         onChange={(e) => {
-                            setEditData({...editData, nlv: e.target.value})
+                            setEditData({...editData, title2: e.target.value})
                         }}
-                        >
-                            <option>iniciante</option>
-                            <option>intermediario</option>
-                            <option>avançado</option>
-                        </select> 
-                        
-                        
-                        <label htmlFor="text">Texto</label>
+                        />
+
+                        <label htmlFor="text">SubTitulo</label>
                         <textarea type="text" 
                         id='text'
                         placeholder='Escreva um pouco da habilidade...'
-                        value={editData.text}
+                        value={editData.subtitle}
                         onChange={(e) => {
-                            setEditData({...editData, text: e.target.value})
+                            setEditData({...editData, subtitle: e.target.value})
                         }}
                         /> 
+
+                        <label htmlFor="linksite">Link do site</label>
+                        <input type="text" 
+                        id='linksite'
+                        placeholder='insira um titulo'
+                        value={editData.linkSite}
+                        onChange={(e) => {
+                            setEditData({...editData, linkSite: e.target.value})
+                        }}
+                        />
+
+                        <label htmlFor="linkgit">Link github</label>
+                        <input type="text" 
+                        id='linkgit'
+                        placeholder='insira um titulo'
+                        value={editData.linkGithub}
+                        onChange={(e) => {
+                            setEditData({...editData, linkGithub: e.target.value})
+                        }}
+                        />
+
+
                         <div className='btn--edit'>
                         <button type='submit'>Salvar</button>
                         {edit !== "" && <button className='btn--dit_delete'  
