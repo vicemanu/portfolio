@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import './cursos.css'
-import { GiButtonFinger } from 'react-icons/gi'
+import { GiArrowScope } from 'react-icons/gi'
 import { FiUpload } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 
@@ -28,17 +28,18 @@ export default function Cursos() {
     useEffect(()=> {
         async function buscarbotoes() {
 
-            const botoesRef = collection(db, 'botoes');
+            const botoesRef = collection(db, 'cursos');
       
             await getDocs(botoesRef).then((snapshot) => {
               let lista  = [];
               snapshot.forEach((doc)=> {
                 lista.push({
-                  title: doc.data().title,
-                  text: doc.data().text,
-                  srcImg: doc.data().srcImg,
-                  nlv: doc.data().nlv,
-                  logImg: doc.data().logImg,
+                  nomeDoCurso: doc.data().nomeDoCurso,
+                  colegio: doc.data().colegio,
+                  img: doc.data().img,
+                  horas: doc.data().horas,
+                  certificado: doc.data().certificado,
+                  habilidades: doc.data().habilidades,
                   id: doc.id
       
                 })
@@ -184,26 +185,29 @@ async function editButton(URL) {
             <Header/>
 
             <div className="content">
-                <Title name='Botões'>
-                    <GiButtonFinger color='#000' size={24}/>
+                <Title name='Cursos'>
+                    <GiArrowScope color='#000' size={24}/>
                 </Title>
                 
                 <div className='container' ref={carrossel}>
-                    <div className='container--bottons'>
+
+                    <div className='container--cursos'>
+
                     <button className='container-bottons__left' onClick={()=> {irParaEsquerda()}}><i className="bi bi-caret-left-fill"></i></button>
                     <button className='container-bottons__right' onClick={()=> {irParaDireita()}} ><i className="bi bi-caret-right-fill"></i></button> 
 
                     {data?.map((e, index) => {
                             return (
-                                <button key={e.id} className="container__bottons-btn"
+                                <button key={e.id} className="container__bottons-cursos"
                                 onClick={()=> {
                                     setEditData({title: e.title, nlv: e.nlv, text: e.text, srcImg: e.srcImg})
                                     setEdit(e.id)
                                     setVeIndex(index)
                                     console.log(editData)
                                 }}
+                                style={{backgroundImage: `url(${e.img})` }}
                                 >
-                                    <img src={e.srcImg} alt="" />
+
                                 </button>
                             )
                             
