@@ -140,3 +140,24 @@
 .form-profile button {
     max-width: 600px;
 }
+
+.add--habilidade {
+    background: none;
+    color: black;
+    font-size: 1.5em;
+}
+
+.habilidade--box {
+    display: flex;
+    max-width: 600px;
+    gap: 10px;
+}
+
+.habilidade--box > input {
+    flex: 1;
+}
+
+.habilidade--box > button {
+    background-color: rgb(158, 9, 9);
+    width: 60px;
+}

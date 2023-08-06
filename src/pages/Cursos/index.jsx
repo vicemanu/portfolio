@@ -2,6 +2,7 @@
 
 import './cursos.css'
 import { GiArrowScope } from 'react-icons/gi'
+import { AiOutlineDelete } from 'react-icons/ai'
 import { FiUpload } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 
@@ -184,9 +185,20 @@ async function editButton(URL) {
     // Edição da habilidade
 
     function hendleHabilidadde(e, index) {
-        console.log(habilidades)
         habilidades[index] = e.target.value
         setHabilidades([...habilidades])
+    }
+
+    // delete habilidade
+
+    function deleteHabilidade(index) {
+        const filterhabilidades = []
+        habilidades.filter((e, n)=> {
+            if(n != index) {
+                filterhabilidades.push(e)
+            }
+        })
+        setHabilidades([...filterhabilidades])
     }
 
     return(
@@ -284,19 +296,21 @@ async function editButton(URL) {
                         }}
                         />
 
-                        <label>Habilidades Aprendidas <button>+</button> </label> 
+                        <label>Habilidades Aprendidas <button className='add--habilidade' onClick={()=>{
+                            setHabilidades([...habilidades, ""])
+                        }}>+</button> </label> 
                         {habilidades.map((e, index)=> {
                             return(
-                                <>
+                                <div className='habilidade--box' key={index}>
                                     <input type="text"
-                                    key={index} 
                                     placeholder='insira a habilidade aprendida'
                                     value={habilidades[index]}
                                     onChange={(e) => {
                                         hendleHabilidadde(e, index)
                                     }}
                                     />
-                                </>
+                                    <button onClick={(e, index) => deleteHabilidade(e.target.value,index) }><AiOutlineDelete/></button>
+                                </div>
                             )
                         })
 
