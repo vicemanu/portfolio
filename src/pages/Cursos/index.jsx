@@ -18,15 +18,16 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 export default function Cursos() {
         const [data, setData] = useState()
         const [edit, setEdit] = useState("")
-        const [editData, setEditData] = useState({title: "", nlv: "iniciante", text: "", srcImg: null})
+        const [editData, setEditData] = useState({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] })
         const [imageAvatar, setImageAvatar] = useState(null)
         const [load, setLoad] = useState(false)
         const [veIndex, setVeIndex] = useState()
+        const [habilidades, setHabilidades] = useState(["", ""])
 
     // Chamada dos botões existentes    
 
     useEffect(()=> {
-        async function buscarbotoes() {
+        async function buscarCursos() {
 
             const botoesRef = collection(db, 'cursos');
       
@@ -47,9 +48,8 @@ export default function Cursos() {
               setData(lista)    
             })
           }
-                buscarbotoes()
+                buscarCursos()
                 console.log(data)
-      
       
         }, [load])
 
@@ -78,7 +78,7 @@ export default function Cursos() {
 
             if(image.type === 'image/jpeg' || image.type === 'image/png') {
                 setImageAvatar(image)
-                setEditData({...editData, srcImg: URL.createObjectURL(image)})
+                setEditData({...editData, img: URL.createObjectURL(image)})
             } else {
                 alert("envie uma imagem do tipo PNG ou JPEG")
                 setImageAvatar(null)
@@ -180,6 +180,15 @@ async function editButton(URL) {
         })
     }
 
+
+    // Edição da habilidade
+
+    function hendleHabilidadde(ele, index) {
+        console.log(habilidades)
+        habilidades[index] = ele
+        setHabilidades([...habilidades])
+    }
+
     return(
         <div>
             <Header/>
@@ -228,46 +237,77 @@ async function editButton(URL) {
                             </span>
 
                             <input type="file" accept="image/*" onChange={handleFile} /><br/>
-                            {editData.srcImg === null ? (
+                            {editData.img === null ? (
                                 <img src={Avatar} alt="Foto de perfil"/>
                             ): (
-                                <img src={editData.srcImg} alt="Foto de perfil"/>
+                                <img src={editData.img} alt="Foto de perfil"/>
                             )}
                     </label>
 
-                        <label htmlFor="title">Titulo</label>
+                        <label htmlFor="curso">Nome do Curso</label>
                         <input type="text" 
-                        id='title'
-                        placeholder='insira um titulo'
-                        value={editData.title}
+                        id='curso'
+                        placeholder='insira um nome para seu curso...'
+                        value={editData.nomeDoCurso}
                         onChange={(e) => {
-                            setEditData({...editData, title: e.target.value})
+                            setEditData({...editData, nomeDoCurso: e.target.value})
                         }}
                         />
 
-                        <label htmlFor="nvl">Nivel de Habilidade</label>
-                        <select 
-                        id='nvl'
-                        value={editData.nlv}
+                        <label htmlFor="colegio">Nome do colegio</label>
+                        <input type="text" 
+                        id='colegio'
+                        placeholder='insira o nome do colegio...'
+                        value={editData.colegio}
                         onChange={(e) => {
-                            setEditData({...editData, nlv: e.target.value})
+                            setEditData({...editData, colegio: e.target.value})
                         }}
-                        >
-                            <option>iniciante</option>
-                            <option>intermediario</option>
-                            <option>avançado</option>
-                        </select> 
+                        />
+
+                        <label htmlFor="horas">Quantas horas de curso</label>
+                        <input type="text" 
+                        id='horas'
+                        placeholder='insira a quantidade de horas'
+                        value={editData.horas}
+                        onChange={(e) => {
+                            setEditData({...editData, horas: e.target.value})
+                        }}
+                        />
+
+                        <label htmlFor="certificado">Link do certificado</label>
+                        <input type="text" 
+                        id='certificado'
+                        placeholder='insira a quantidade de horas'
+                        value={editData.certificado}
+                        onChange={(e) => {
+                            setEditData({...editData, certificado: e.target.value})
+                        }}
+                        />
+
+                        <label>Habilidades Aprendidas <button>+</button> </label> 
+                        {habilidades.map((e, index)=> {
+                            return(
+                                <>
+                                    <input type="text"
+                                    key={e} 
+                                    placeholder='insira a habilidade aprendida'
+                                    value={habilidades[index]}
+                                    onChange={(e) => {
+                                        hendleHabilidadde(e.target.value, index)
+                                    }}
+                                    />
+                                </>
+                            )
+                        })
+
+                        }
+                        
+
+                    
+{/* {nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] } */}
                         
                         
-                        <label htmlFor="text">Texto</label>
-                        <textarea type="text" 
-                        id='text'
-                        placeholder='Escreva um pouco da habilidade...'
-                        value={editData.text}
-                        onChange={(e) => {
-                            setEditData({...editData, text: e.target.value})
-                        }}
-                        /> 
+                        
                         <div className='btn--edit'>
                         <button type='submit'>Salvar</button>
                         {edit !== "" && <button className='btn--dit_delete'  
