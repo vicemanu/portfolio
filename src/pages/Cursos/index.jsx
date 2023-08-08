@@ -178,11 +178,11 @@ async function editCurso(URL) {
         setLoad(true)
         await deleteDoc(doc(db, "cursos", data[veIndex].id))
         .then(()=> {
-            setLoad(false)
             toast.success("deletado com sucesso")
             setEditData({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] })
             setHabilidades([""])
             setEdit("")
+            setLoad(false)
         })
         .catch((e)=> {
             console.log(e)
@@ -305,7 +305,7 @@ async function editCurso(URL) {
                         }}
                         />
 
-                        <label>Habilidades Aprendidas <button className='add--habilidade' onClick={()=>{
+                        <label>Habilidades Aprendidas <button type='button' className='add--habilidade' onClick={()=>{
                             setHabilidades([...habilidades, ""])
                         }}>+</button> </label> 
                         {habilidades.map((e, index)=> {
