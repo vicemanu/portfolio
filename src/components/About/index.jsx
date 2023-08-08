@@ -23,12 +23,13 @@ export default function About() {
         let lista  = [];
         snapshot.forEach((doc)=> {
           lista.push({
-            text: doc.data().text
+            text1: doc.data().text1,
+            text2: doc.data().text2,
+            text3: doc.data().text3
   
           })
          })
-        setData(lista)
-            
+        setData(...lista)
       })
       // mostra na tela
     }
@@ -51,11 +52,14 @@ export default function About() {
   }
 
   function textoTela() {
-    return(
-      <p>
-        {data[nTela]?.text}
-      </p>
-    )
+    if(nTela === 0) {
+      return <p>{data.text1}</p>
+      } else if (nTela === 1) {
+        return <p>{data.text2}</p>
+      } else if (nTela === 2) {
+        return <p>{data.text3}</p>
+      }
+    
   }
 
 
