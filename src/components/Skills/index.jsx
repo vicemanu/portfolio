@@ -77,7 +77,6 @@ export default function Skills() {
                 setNome(e.title)
                 setNivel(e.nlv)
                 setTexto(e.text)
-                setImg(e.logImg)
                 return;
             } 
             
