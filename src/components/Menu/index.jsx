@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 import { useState } from 'react'
 import './menu.css'
-//ajeitar menu
 
 export default function Menu() {
 
