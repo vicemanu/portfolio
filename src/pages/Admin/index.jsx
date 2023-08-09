@@ -43,6 +43,7 @@ export default function Admin() {
         if(data.text1 !== '' && data.text2 !== '' && data.text3 !== '') {
             await updateDoc(doc(db,"text","I5pKDEIRPsFdAV6uDyrE"), data)
             .then(()=> {
+                toast.success("Editado com sucesso")
             })
             .catch(error => {
                 console.log(error)
