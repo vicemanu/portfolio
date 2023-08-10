@@ -28,11 +28,12 @@ export default function Skills() {
             srcImg: doc.data().srcImg,
             nlv: doc.data().nlv,
             logImg: doc.data().logImg,
+            ordem: doc.data().ordem,
             id: doc.id
 
           })
          })
-        setData(lista)    
+        setData(lista.sort((a, b) => a.ordem - b.ordem))    
       })
     }
           buscarbotoes()

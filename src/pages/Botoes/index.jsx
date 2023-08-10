@@ -18,7 +18,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 export default function Botoes() {
         const [data, setData] = useState()
         const [edit, setEdit] = useState("")
-        const [editData, setEditData] = useState({title: "", nlv: "iniciante", text: "", srcImg: null})
+        const [editData, setEditData] = useState({title: "", nlv: "iniciante", text: "", srcImg: null, ordem: ""})
         const [imageAvatar, setImageAvatar] = useState(null)
         const [load, setLoad] = useState(false)
         const [veIndex, setVeIndex] = useState()
@@ -39,11 +39,12 @@ export default function Botoes() {
                   srcImg: doc.data().srcImg,
                   nlv: doc.data().nlv,
                   logImg: doc.data().logImg,
+                  ordem: doc.data().ordem,
                   id: doc.id
       
                 })
                })
-              setData(lista)    
+              setData(lista.sort((a, b) => a.ordem - b.ordem))    
             })
           }
                 buscarbotoes()
@@ -93,10 +94,11 @@ async function editButton(URL) {
         text: editData.text,
         srcImg: URL,
         nlv: editData.nlv,
+        ordem: editData.ordem,
     })
     .then(() => {
         toast.success("Atualizado com sucesso")
-        setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
+        setEditData({title: "", nlv: "iniciante", text: "", srcImg: null, ordem: ""})
         setEdit("")
         setLoad(false)
     })
@@ -141,10 +143,11 @@ async function editButton(URL) {
                             text: editData.text,
                             srcImg: downloadURL,
                             nlv: editData.nlv,
+                            ordem: editData.ordem,
                         })
                         .then(()=> {
                             toast.success("Criado com sucesso")
-                            setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
+                            setEditData({title: "", nlv: "iniciante", text: "", srcImg: null, ordem: ""})
                             setLoad(false)
                         })
                         })
@@ -171,7 +174,7 @@ async function editButton(URL) {
         .then(()=> {
             setLoad(false)
             toast.success("deletado com sucesso")
-            setEditData({title: "", nlv: "iniciante", text: "", srcImg: null})
+            setEditData({title: "", nlv: "iniciante", text: "", srcImg: null, ordem: ""})
             setEdit("")
         })
         .catch((e)=> {
@@ -183,21 +186,22 @@ async function editButton(URL) {
         <div>
             <Header/>
 
-            <div className="content">
+            <div className="content" >
                 <Title name='Botões'>
                     <GiButtonFinger color='#000' size={24}/>
                 </Title>
                 
-                <div className='container' ref={carrossel}>
-                    <div className='container--bottons'>
-                    <button className='container-bottons__left' onClick={()=> {irParaEsquerda()}}><i className="bi bi-caret-left-fill"></i></button>
-                    <button className='container-bottons__right' onClick={()=> {irParaDireita()}} ><i className="bi bi-caret-right-fill"></i></button> 
+                <div className='container-btn-flex relative'>
 
+                    <button className='container-bottons__left-btn' onClick={()=> {irParaEsquerda()}}><i className="bi bi-caret-left-fill"></i></button>
+                    <button className='container-bottons__right-btn' onClick={()=> {irParaDireita()}} ><i className="bi bi-caret-right-fill"></i></button> 
+                    
+                    <div className='container--bottons' ref={carrossel}>
                     {data?.map((e, index) => {
                             return (
                                 <button key={e.id} className="container__bottons-btn"
                                 onClick={()=> {
-                                    setEditData({title: e.title, nlv: e.nlv, text: e.text, srcImg: e.srcImg})
+                                    setEditData({title: e.title, nlv: e.nlv, text: e.text, srcImg: e.srcImg, ordem: e.ordem})
                                     setEdit(e.id)
                                     setVeIndex(index)
                                     console.log(editData)
@@ -209,6 +213,8 @@ async function editButton(URL) {
                             
                         })
                     }
+                    
+                    
                     </div>
                 </div>
 
@@ -236,6 +242,16 @@ async function editButton(URL) {
                         value={editData.title}
                         onChange={(e) => {
                             setEditData({...editData, title: e.target.value})
+                        }}
+                        />
+
+                        <label htmlFor="ordem">Prioridade</label>
+                        <input type="text" 
+                        id='ordem'
+                        placeholder='insira um titulo'
+                        value={editData.ordem}
+                        onChange={(e) => {
+                            setEditData({...editData, ordem: e.target.value})
                         }}
                         />
 
