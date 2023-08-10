@@ -5,6 +5,7 @@
     padding:  0.8rem;
     align-items:  center;
     margin-bottom: 1em;
+    position: relative;
 }
 
 .container--projeto {
@@ -14,26 +15,17 @@
     height: 220px;
     position: relative;
     align-items: center;
+    scroll-behavior: smooth;
+    overflow-x: auto;
 }
 
-.container-bottons__right, .container-bottons__left {
-    position: absolute;
-    top: 50%;
-    transform: translate(0,-50%);
-}
-
-.container-bottons__right {
-    right: -20px;
-}
-
-.container-bottons__left {
-    left: -20px;
-}
-
-
+.container--projeto::-webkit-scrollbar {
+    display: none;
+  }
 
 .container__bottons-projeto {
-    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
     height: 200px;
     border-radius: 8px;
     position: relative;

@@ -13,15 +13,17 @@ import { useEffect, useState, useRef } from 'react'
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore'
 import { db, storage } from '../../firebase'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { AiOutlineDelete } from 'react-icons/ai'
 
 
 export default function Projetos() {
         const [data, setData] = useState()
         const [edit, setEdit] = useState("")
-        const [editData, setEditData] = useState({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: ""})
+        const [editData, setEditData] = useState({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "", habilidades: [""]})
         const [imageAvatar, setImageAvatar] = useState(null)
         const [load, setLoad] = useState(false)
         const [veIndex, setVeIndex] = useState()
+        const [habilidades, setHabilidades] = useState([""])
 
     // Chamada dos botões existentes    
 
@@ -40,6 +42,8 @@ export default function Projetos() {
                   linkSite: doc.data().linkSite,
                   imgProject: doc.data().imgProject,
                   linkGithub: doc.data().linkGithub,
+                  descricao: doc.data().descricao,
+                  habilidades: doc.data().habilidades,
                   id: doc.id
       
                 })
@@ -94,12 +98,15 @@ async function editProjeto(URL) {
         title2: editData.title2,
         subtitle: editData.subtitle,
         linkSite: editData.linkSite,
+        descricao: editData.descricao,
         imgProject: URL,
         linkGithub: editData.linkGithub,
+        habilidades: habilidades,
     })
     .then(() => {
         toast.success("Atualizado com sucesso")
-        setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: ""})
+        setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "" , habilidades: [""]})
+        setHabilidades([""])
         setEdit("")
         setLoad(false)
     })
@@ -146,11 +153,14 @@ async function editProjeto(URL) {
                             linkSite: editData.linkSite,
                             imgProject: downloadURL,
                             linkGithub: editData.linkGithub,
+                            descricao: editData.descricao,
+                            habilidades: habilidades,
                         })
                         .then(()=> {
                             toast.success("Criado com sucesso")
-                            setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: ""})
+                            setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "" , habilidades: [""]})
                             setLoad(false)
+                            setHabilidades([""])
                         })
                         })
                 })
@@ -176,12 +186,33 @@ async function editProjeto(URL) {
         .then(()=> {
             setLoad(false)
             toast.success("deletado com sucesso")
-            setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: ""})
+            setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "", habilidades: [""]})
+            setHabilidades([""])
             setEdit("")
         })
         .catch((e)=> {
             console.log(e)
         })
+    }
+
+
+        // Edição da habilidade
+
+        function hendleHabilidade(e, index) {
+            habilidades[index] = e.target.value
+            setHabilidades([...habilidades])
+        }
+
+    // delete habilidade
+
+    function deleteHabilidade(index) {
+        const filterhabilidades = []
+        habilidades.filter((e, n)=> {
+            if(n != index) {
+                filterhabilidades.push(e)
+            }
+        })
+        setHabilidades([...filterhabilidades])
     }
 
     return(
@@ -193,18 +224,20 @@ async function editProjeto(URL) {
                 <GoProjectSymlink color='#000' size={24}/>
                 </Title>
                 
-                <div className='container' ref={carrossel}>
-                    <div className='container--projeto'>
-                        <button className='container-bottons__left' onClick={()=> {irParaEsquerda()}}><i className="bi bi-caret-left-fill"></i></button>
-                        <button className='container-bottons__right' onClick={()=> {irParaDireita()}} ><i className="bi bi-caret-right-fill"></i></button> 
+                <div className='container' >
+                        <button className='container-bottons__left-btn' onClick={()=> {irParaEsquerda()}}><i className="bi bi-caret-left-fill"></i></button>
+                        <button className='container-bottons__right-btn' onClick={()=> {irParaDireita()}} ><i className="bi bi-caret-right-fill"></i></button> 
+                    <div className='container--projeto' ref={carrossel}>
+                        
 
                         {data?.map((e, index) => {
                             return (
                                 <button key={e.id} className="container__bottons-projeto"
                                 onClick={()=> {
-                                    setEditData({title1: e.title1, title2: e.title2, subtitle: e.subtitle, linkSite: e.linkSite, imgProject: e.imgProject, linkGithub: e.linkGithub})
+                                    setEditData({title1: e.title1, title2: e.title2, subtitle: e.subtitle, linkSite: e.linkSite, imgProject: e.imgProject, linkGithub: e.linkGithub, descricao: e.descricao})
                                     setEdit(e.id)
                                     setVeIndex(index)
+                                    setHabilidades([...e.habilidades])
                                     console.log(editData)
                                 }}
                                 style={{backgroundImage: `url(${e.imgProject})` }}
@@ -216,6 +249,7 @@ async function editProjeto(URL) {
                             
                         })
                     }
+
                     </div>
                 </div>
 
@@ -256,15 +290,45 @@ async function editProjeto(URL) {
                         }}
                         />
 
-                        <label htmlFor="text">SubTitulo</label>
+                        <label htmlFor="subtitle">SubTitulo</label>
                         <textarea type="text" 
-                        id='text'
-                        placeholder='Escreva um pouco da habilidade...'
+                        id='subtitle'
+                        placeholder='Escreva um pouco do projeto...'
                         value={editData.subtitle}
                         onChange={(e) => {
                             setEditData({...editData, subtitle: e.target.value})
                         }}
-                        /> 
+                        />
+
+                        <label htmlFor="description">Descrição detalhada</label>
+                        <textarea type="text" 
+                        id='description'
+                        placeholder='De mais detalhes do projeto...'
+                        value={editData.descricao}
+                        onChange={(e) => {
+                            setEditData({...editData, descricao: e.target.value})
+                        }}
+                        />
+
+                        <label>Habilidades Aprendidas <button type='button' className='add--habilidade' onClick={()=>{
+                            setHabilidades([...habilidades, ""])
+                        }}>+</button> </label> 
+                        {habilidades.map((e, index)=> {
+                            return(
+                                <div className='habilidade--box' key={index}>
+                                    <input type="text"
+                                    placeholder='insira a habilidade aprendida'
+                                    value={habilidades[index]}
+                                    onChange={(e) => {
+                                        hendleHabilidade(e, index)
+                                    }}
+                                    />
+                                    <button onClick={() => deleteHabilidade(index) }><AiOutlineDelete/></button>
+                                </div>
+                            )
+                        })
+
+                        }
 
                         <label htmlFor="linksite">Link do site</label>
                         <input type="text" 

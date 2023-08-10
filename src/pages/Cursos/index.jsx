@@ -318,7 +318,7 @@ async function editCurso(URL) {
                                         hendleHabilidadde(e, index)
                                     }}
                                     />
-                                    <button onClick={(e, index) => deleteHabilidade(e.target.value,index) }><AiOutlineDelete/></button>
+                                    <button onClick={() => deleteHabilidade(index) }><AiOutlineDelete/></button>
                                 </div>
                             )
                         })
@@ -326,11 +326,6 @@ async function editCurso(URL) {
                         }
                         
 
-                    
-{/* {nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] } */}
-                        
-                        
-                        
                         <div className='btn--edit'>
                         <button type='submit'>Salvar</button>
                         {edit !== "" && <button className='btn--dit_delete'  
