@@ -125,7 +125,7 @@
 }
 
 .box__content--text  p {
-    font-size: 0.9em;
+    font-size: 0.85em;
 }
 
 .box__content--btn__left, .box__content--btn__right {
@@ -223,7 +223,7 @@
     }
 
     .box__content--text  p {
-        font-size: 1em;
+        font-size: 0.95em;
     }
     
 }

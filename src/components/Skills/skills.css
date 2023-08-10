@@ -42,6 +42,7 @@
 .container-skills__box-img img {
   width: 90%;
   text-align: center;
+  transform: scale(1.3);
 
 
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './skills.css'
 import { useEffect, useState } from "react"
 import { collection, getDocs } from 'firebase/firestore'
@@ -10,7 +11,7 @@ export default function Skills() {
   const [nome,setNome] = useState('')
   const [nivel , setNivel] = useState('')
   const [texto, setTexto] = useState('')
-  const [imglog,setImg] = useState('img/aboutme/img6.svg')
+  const [imglog,setImg] = useState('img/aboutme/img8.svg')
   const [data, setData] = useState([])
 
   useEffect(()=> {

@@ -252,7 +252,6 @@ async function editButton(URL) {
                             <option>avançado</option>
                         </select> 
                         
-                        
                         <label htmlFor="text">Texto</label>
                         <textarea type="text" 
                         id='text'
