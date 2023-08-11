@@ -89,7 +89,7 @@
     text-shadow: 2px 0px 11px white;
   }
   
-  .github  {
+  .github,.github--projeto  {
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -107,15 +107,104 @@
     z-index: 2;
   } 
   
-  .github img {
+  .github img, .github--projeto img {
     width: 22px;
     height: 22px;
   }
   
   
-  .github:hover {
-    transform: scale(1.2);
+  .github:hover, .github--projeto:hover {
+    transform: scale(1.1);
   } 
+
+  .projetotela {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: #000000a8;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.projetotela--box {
+    width: 320px;
+    min-height: 280px;
+    background-color: #1D1D1D;
+    box-shadow: 6px 3px 10px 2px rgba(0, 0, 0, 0.356);
+    border-radius: 20px;
+    position: relative;
+    padding: 25px;
+    color: white;
+
+}
+
+.projetotela__box--title {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.projetotela__box--escola {
+    color: rgba(255, 255, 255, 0.685);
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.projetotela__box--habilidade__lista {
+    margin: 6px 0px;
+    color: #06ff1b;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    animation: animate 15s linear infinite;
+}
+
+.projetotela__box--habilidade__lista li::before {
+  content: "#";
+}
+
+.projetotela__box--habilidade__lista li {
+  list-style: none;
+}
+
+.close {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    color: white;
+    font-size: 1.9em;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.projetotela__box--link {
+    position: absolute;
+    bottom: 25px;
+    color: var(--color3);
+    text-decoration: none;
+    margin-top: 30px;
+}
+
+.projetotela__box--link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.github--projeto {
+  bottom: 15px;
+  right: 20px;
+}
+
+.projetotela__box--text {
+  margin-top: 10px;
+  color: #ffffffc9;
+  font-size: 0.9em;
+}
 
   @media screen and (min-width: 500px) {
     .projects__carrossel-projects {
@@ -128,3 +217,15 @@
     }
   }
   
+
+  @keyframes animate
+{
+    0%
+    {
+        filter: hue-rotate(0deg);
+    }
+    100%
+    {
+        filter: hue-rotate(360deg);
+    }
+}
