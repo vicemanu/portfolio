@@ -19,7 +19,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 export default function Cursos() {
         const [data, setData] = useState()
         const [edit, setEdit] = useState("")
-        const [editData, setEditData] = useState({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] })
+        const [editData, setEditData] = useState({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [], ordem: "" })
         const [imageAvatar, setImageAvatar] = useState(null)
         const [load, setLoad] = useState(false)
         const [veIndex, setVeIndex] = useState()
@@ -41,12 +41,13 @@ export default function Cursos() {
                   img: doc.data().img,
                   horas: doc.data().horas,
                   certificado: doc.data().certificado,
+                  ordem: doc.data().ordem,
                   habilidades: doc.data().habilidades,
                   id: doc.id
       
                 })
                })
-              setData(lista)    
+              setData(lista.sort((a, b) => a.ordem - b.ordem))    
             })
           }
                 buscarCursos()
@@ -95,14 +96,15 @@ async function editCurso(URL) {
         colegio: editData.colegio,
         img: URL,
         horas: editData.horas,
+        ordem: editData.ordem,
         certificado: editData.certificado,
         habilidades: habilidades,
     })
     .then(() => {
         toast.success("Atualizado com sucesso")
-        setEditData({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] })
-        setLoad(false)
+        setEditData({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [], ordem: "" })
         setHabilidades([""])
+        setLoad(false)
         setEdit("")
     })
 }
@@ -148,11 +150,12 @@ async function editCurso(URL) {
                             img: downloadURL,
                             horas: editData.horas,
                             certificado: editData.certificado,
+                            ordem: editData.ordem,
                             habilidades: habilidades,
                         })
                         .then(()=> {
                             toast.success("Criado com sucesso")
-                            setEditData({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] })
+                            setEditData({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [], ordem: "" })
                             setLoad(false)
                             setHabilidades([""])
                         })
@@ -179,7 +182,7 @@ async function editCurso(URL) {
         await deleteDoc(doc(db, "cursos", data[veIndex].id))
         .then(()=> {
             toast.success("deletado com sucesso")
-            setEditData({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [] })
+            setEditData({nomeDoCurso: "", colegio: "", horas: "", img: null, certificado: "", habilidades: [], ordem: "" })
             setHabilidades([""])
             setEdit("")
             setLoad(false)
@@ -229,7 +232,7 @@ async function editCurso(URL) {
                             return (
                                 <button key={e.id} className="container__bottons-cursos"
                                 onClick={()=> {
-                                    setEditData({nomeDoCurso: e.nomeDoCurso, colegio: e.colegio, horas: e.horas, img: e.img, certificado: e.certificado, habilidades: [] })
+                                    setEditData({nomeDoCurso: e.nomeDoCurso, colegio: e.colegio, horas: e.horas, img: e.img, certificado: e.certificado, habilidades: [], ordem: e.ordem })
                                     setHabilidades([...e.habilidades])
                                     setEdit(e.id)
                                     setVeIndex(index)
@@ -292,6 +295,16 @@ async function editCurso(URL) {
                         value={editData.horas}
                         onChange={(e) => {
                             setEditData({...editData, horas: e.target.value})
+                        }}
+                        />
+
+                        <label htmlFor="ordem">Numero de Ordem</label>
+                        <input type="text" 
+                        id='ordem'
+                        placeholder='insira um nome para seu curso...'
+                        value={editData.ordem}
+                        onChange={(e) => {
+                            setEditData({...editData, ordem: e.target.value})
                         }}
                         />
 
