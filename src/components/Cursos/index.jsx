@@ -33,7 +33,7 @@ export default function Cursos() {
   
           })
          })
-        setData(lista)    
+        setData(lista.sort((a, b) => a.ordem - b.ordem))    
       })
     }
           buscarprojetos()

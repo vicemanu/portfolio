@@ -19,7 +19,7 @@ import { AiOutlineDelete } from 'react-icons/ai'
 export default function Projetos() {
         const [data, setData] = useState()
         const [edit, setEdit] = useState("")
-        const [editData, setEditData] = useState({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "", habilidades: [""]})
+        const [editData, setEditData] = useState({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "", habilidades: [""], ordem: ""})
         const [imageAvatar, setImageAvatar] = useState(null)
         const [load, setLoad] = useState(false)
         const [veIndex, setVeIndex] = useState()
@@ -43,12 +43,13 @@ export default function Projetos() {
                   imgProject: doc.data().imgProject,
                   linkGithub: doc.data().linkGithub,
                   descricao: doc.data().descricao,
+                  ordem: doc.data().ordem,
                   habilidades: doc.data().habilidades,
                   id: doc.id
       
                 })
                })
-              setData(lista)    
+              setData(lista.sort((a, b) => a.ordem - b.ordem))    
             })
           }
                 buscarbotoes()
@@ -99,13 +100,14 @@ async function editProjeto(URL) {
         subtitle: editData.subtitle,
         linkSite: editData.linkSite,
         descricao: editData.descricao,
+        ordem: editData.ordem,
         imgProject: URL,
         linkGithub: editData.linkGithub,
         habilidades: habilidades,
     })
     .then(() => {
         toast.success("Atualizado com sucesso")
-        setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "" , habilidades: [""]})
+        setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "" , habilidades: [""], ordem: ""})
         setHabilidades([""])
         setEdit("")
         setLoad(false)
@@ -151,6 +153,7 @@ async function editProjeto(URL) {
                             title2: editData.title2,
                             subtitle: editData.subtitle,
                             linkSite: editData.linkSite,
+                            ordem: editData.ordem,
                             imgProject: downloadURL,
                             linkGithub: editData.linkGithub,
                             descricao: editData.descricao,
@@ -158,7 +161,7 @@ async function editProjeto(URL) {
                         })
                         .then(()=> {
                             toast.success("Criado com sucesso")
-                            setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "" , habilidades: [""]})
+                            setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "" , habilidades: [""], ordem: ""})
                             setLoad(false)
                             setHabilidades([""])
                         })
@@ -186,7 +189,7 @@ async function editProjeto(URL) {
         .then(()=> {
             setLoad(false)
             toast.success("deletado com sucesso")
-            setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "", habilidades: [""]})
+            setEditData({title1: "", title2: "", subtitle: "", linkSite: "", imgProject: null, linkGithub: "", descricao: "", habilidades: [""], ordem: ""})
             setHabilidades([""])
             setEdit("")
         })
@@ -234,7 +237,7 @@ async function editProjeto(URL) {
                             return (
                                 <button key={e.id} className="container__bottons-projeto"
                                 onClick={()=> {
-                                    setEditData({title1: e.title1, title2: e.title2, subtitle: e.subtitle, linkSite: e.linkSite, imgProject: e.imgProject, linkGithub: e.linkGithub, descricao: e.descricao})
+                                    setEditData({title1: e.title1, title2: e.title2, subtitle: e.subtitle, linkSite: e.linkSite, imgProject: e.imgProject, linkGithub: e.linkGithub, descricao: e.descricao, ordem: e.ordem})
                                     setEdit(e.id)
                                     setVeIndex(index)
                                     setHabilidades([...e.habilidades])
@@ -307,6 +310,16 @@ async function editProjeto(URL) {
                         value={editData.descricao}
                         onChange={(e) => {
                             setEditData({...editData, descricao: e.target.value})
+                        }}
+                        />
+
+                        <label htmlFor="ordem">Numero de Ordem</label>
+                        <input type="text" 
+                        id='ordem'
+                        placeholder='insira um titulo'
+                        value={editData.ordem}
+                        onChange={(e) => {
+                            setEditData({...editData, ordem: e.target.value})
                         }}
                         />
 

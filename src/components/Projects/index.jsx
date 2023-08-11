@@ -35,7 +35,7 @@ export default function Projects() {
   
           })
          })
-        setData(lista)    
+        setData(lista.sort((a, b) => a.ordem - b.ordem))    
       })
     }
           buscarprojetos()
