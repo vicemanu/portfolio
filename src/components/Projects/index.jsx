@@ -30,6 +30,7 @@ export default function Projects() {
             imgProject: doc.data().imgProject,
             linkGithub: doc.data().linkGithub,
             descricao: doc.data().descricao,
+            ordem: doc.data().ordem,
             habilidades: doc.data().habilidades,
             id: doc.id
   
@@ -50,7 +51,7 @@ export default function Projects() {
         <div className='projects__carrossel-projects'>
 
 
-          {data?.map((e, index) => {
+        {data?.map((e, index) => {
           return <Boxproject key={e.id} link={e.linkSite} img={e.imgProject} nome1={e.title1} nome2={e.title2} desc={e.subtitle} linkgithub={e.linkGithub} setProjetoTela={setProjetoTela} setNumProjetoTela={setNumProjetoTela} index={index}/>
         })} 
         </div>
