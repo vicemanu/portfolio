@@ -190,6 +190,7 @@
 .cursotela__box--habilidade__lista {
     padding: 10px 25px;
     color: rgba(255, 255, 255, 0.685);
+    margin-bottom: 16px;
 }
 
 .close {
